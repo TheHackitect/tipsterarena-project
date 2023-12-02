@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 import os
+from decouple import config
+
 import dj_database_url
 import django_heroku  # If you're deploying to Heroku
 
@@ -32,8 +33,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['192.168.144.33', '127.0.0.1']
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -169,4 +168,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = [] # add urls of website durring deployment
+CSRF_TRUSTED_ORIGINS = []  # add urls of website durring deployment
