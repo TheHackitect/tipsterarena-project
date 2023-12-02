@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tipster Arena{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0-beta3/css/all.css" nonce="{{ g.font_awesome_nonce }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" nonce="{{ g.bootstrap_nonce }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+       
+</head>
+<body>
+  
+  <header>
+    
+    <div class="nav-container">
+        <nav class="main-nav">
+            <ul>
+                <!-- Always show Home link -->
+                {% if user.is_authenticated %}
+
+                <li><a href="{% url 'home' %}" class="nav-link">
+                    <span class="nav-icon"><i class="fas fa-home"></i></span>
+                    <span class="nav-text">Home</span>
+                </a></li>
+
+                <li class="dropdown">
+                    <span class= "nav-item">
+                        <span class="nav-icon"><i class="fas fa-futbol"></i></span>
+                        <span class="nav-text">Sports Arena</span>
+                    </span>
+                        <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'football' %}">
+                            <span class="nav-icon"><i class="fas fa-futbol"></i></span> Football
+                        </a>
+                        <a href="{% url 'horse_racing' %}">
+                            <span class="nav-icon"><i class="fas fa-horse"></i></span> Horse Racing
+                        </a>
+                        <a href="{% url 'tennis' %}">
+                            <span class="nav-icon"><i class="fa-solid fa-baseball"></i></span> Tennis
+                        </a>
+                        <a href="{% url 'golf' %}">
+                            <span class="nav-icon"><i class="fas fa-golf-ball"></i></span> Golf
+                        </a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <span class= "nav-item">
+                        <span class="nav-icon"><i class="fas fa-star"></i></span>
+                        <span class="nav-text">Tips Arena</span>
+                    </span>
+                        <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tipster_league_table' %}">
+                            <span class="nav-icon"><i class="fas fa-money-bill-wave"></i></span>
+                            Top Tipsters
+                        </a>
+                        <a href="{% url 'latest_tips' %}">
+                            <span class="nav-icon"><i class="fas fa-dollar-sign"></i></span>
+                            Latest Tips
+                        </a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <span class = "nav-item">
+                        <span class="nav-icon"><i class="fa fa-comments"></i></span>
+                        <span class="nav-text">Chat Arena</span>
+                    </span>
+                        <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'general_chat' %}">
+                            <span class="nav-icon"><i class="fas fa-football-ball"></i></span> General Chat
+                        </a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="{% url 'fixtures_results' %}" class="nav-link">
+                        <span class="nav-icon"><i class="fas fa-flag-checkered"></i></span>
+                        <span class="nav-text">Fixtures & Results</span>
+                        <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        
+                        <a href="{% url 'in_play' %}">
+                            <span class="nav-icon"><i class="fas fa-chalkboard"></i></span>
+                            In Play
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><span class="nav-icon"><i class="fas fa-search"></i></span></a></li>
+                <li>
+
+        </nav>
+        <nav class="right-nav">
+            <ul>
+                <li><a href="{% url 'signout' %}" class="login-btn"><span class = "nav-text">Signout</span></a></li>
+                {% else %}
+
+                <li>
+                    <a href="{% url 'register' %}" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span>
+                        <span class="nav-text">Subscribe</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'signin' %}" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-sign-in-alt"></i></span>
+                        <span class="nav-text">Login</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+{% if show_logo %}
+<div class="logo-container">
+    <!-- Logo images for different scenarios -->
+    {% if is_chatroom %}
+        <img src="{% static 'images/chat1.png' %}" alt="Chatroom Logo" class="chat-logo-image">
+    {% elif sport == 'football' %}
+        <img src="{% static 'images/football4.png' %}" alt="Football Logo" class="football-logo-image">
+    {% elif sport == 'horseracing' %}
+        <img src="{% static 'images/racing1.png' %}" alt="Horse Racing Logo" class="racing-logo-image">
+    {% elif sport == 'tennis' %}
+        <img src="{% static 'images/tennis1.png' %}" alt="Tennis Logo" class="tennis-logo-image">
+    {% elif sport == 'golf' %}
+        <img src="{% static 'images/golf1.png' %}" alt="Golf Logo" class="golf-logo-image">
+    {% else %}
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/ailogo.svg' %}" alt="Default Logo" class="logo-image">
+        </a>
+    {% endif %}
+</div>
+{% endif %}
+{% block content %}{% endblock %}
+
+
+  
+<!-- Footer -->
+    <footer>
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+        </div>
+        <ul class="footer-nav">
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'privacy_policy' %}">Terms of Service</a></li>
+            <li><a href="{% url 'terms_of_service' %}">Privacy Policy</a></li>
+         </ul>
+    </footer>
+
+        
+</body>
+</html>
+

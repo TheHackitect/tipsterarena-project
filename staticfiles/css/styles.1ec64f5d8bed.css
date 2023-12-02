@@ -1,0 +1,1062 @@
+
+
+
+/* ==============================
+   VARIABLES
+   ============================== */
+
+:root {
+    --colors-white: #FFFFFF;
+    --colors-primary: #14345B;
+    --colors-secondary: hsl(0, 94%, 46%);
+    --colors-text: var(--colors-primary);
+    --colors-lightBg: var(--colors-gray7);
+    --colors-gray7: #e7e4e4;    
+    --colors-darkBg: var(--colors-primary);
+    --colors-appbar: var(--colors-primary);
+    --colors-appbarText: var(--colors-white);
+    --colors-footer: var(--colors-primary);
+    --fonts-heading: 'Montserrat', sans-serif;
+    --fonts-paragraph: 'Montserrat', sans-serif;
+    --colors-highlight: hsl(0, 94%, 46%);
+    --radii-md: 4px;
+}
+
+/* ==============================
+   RESETS
+   ============================== */
+
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+    /* Landing page styles */
+.landing-page {
+    background-color: #fff; /* or any other color */
+    padding-bottom: 20px; /* or the space you want between the button and the image */
+    padding-top:20px;
+  }
+  
+  /* The full background image styles */
+  .full-background-image {
+    background-image: url("/static/images/background1.7a1a5021b048.webp");
+    min-height: 120vh; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 0; /* Adjust the padding to control the visible height of the background */
+  }
+  
+  /* Other styles remain the same */
+  .second-background-image {
+    background-image: url("/static/images/background22.ebc3647a1771.webp");
+    min-height: 120vh; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 100px 0; /* Adjust the padding to control the visible height of the background */
+}
+
+.third-background-image{
+    background-image: url("/static/images/background15.a61a29d5d362.webp");
+    min-height: 120vh; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 100px 0; /* Adjust the padding to control the visible height of the background */  
+}
+.fourth-background-image{
+    background-image: url("/static/images/background3.5cc4366d137e.webp");
+    min-height: 120vh; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 100px 0; /* Adjust the padding to control the visible height of the background */  
+}
+.fifth-background-image{
+    background-image: url("/static/images/background33.8b96035629d0.png");
+    min-height: 120vh; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 100px 0; /* Adjust the padding to control the visible height of the background */  
+}
+  
+
+/* ==============================
+   BASE STYLES
+   ============================== */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--colors-lightBg);
+    color: var(--colors-text);
+}
+
+/* styles.css */
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/static/fonts/Montserrat/Montserrat-VariableFont_wght.e6cb49ef6502.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat Italic';
+    src: url("/static/fonts/Montserrat/Montserrat-VariableFont_wght.e6cb49ef6502.ttf") format('truetype');
+    font-style: italic;
+}
+
+
+.dynamic-weight {
+    font-family: 'Montserrat';
+    font-variation-settings: 'wght' 450; /* Adjust the weight as needed */
+}
+
+/* ==============================
+   HEADER STYLES
+   ============================== */
+
+header {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--colors-primary);
+    color: var(--colors-appbarText);
+    box-shadow: var(--shadows-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.main-nav {
+    flex: 1 1 auto; /* This will allow the main-nav to take up the available space between the logo and right-nav */
+    display: flex;
+    justify-content: center; /* This will center the navigation items */
+    align-items: center;
+}
+
+.right-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+}
+
+nav a, .nav-item{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    color: var(--colors-appbarText);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radii-md);
+    transition: text-shadow 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+
+nav a:hover, .nav-item:hover, .login-btn:hover {
+    font-weight: bold;
+    color: var(--colors-white); /* standardizing text color on hover */
+    transform: scale(1.05); /* standardizing transformation on hover */
+    background-color: var(--colors-highlight); /* standardizing background color on hover, replace with desired color variable */
+}
+
+
+.nav-icon i, .login-btn i, .nav-link i {
+    margin-right: 5px; /* Adjust as needed */
+    vertical-align: middle; /* Aligns the icon with the text */
+    font-size: 1.2rem; 
+}
+
+
+.main-nav ul, .right-nav ul {
+    display: flex;
+    list-style-type: none;
+    gap: 1.55rem;
+    margin: 0;
+    padding: 0;
+}
+
+
+.nav-text, .nav-icon{
+    display: block;
+    font-size: 1.2rem; /* Adjust as needed */
+    text-align: center;
+}
+
+.nav-item {
+    display: inline-block;
+    padding: 10px; /* Adjust this value as needed */
+    /* Add any other styles that were applied to the <a> tags */
+}
+.nav-link, .login-btn {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2rem 0.5rem; 
+    font-size:1.2rem;
+    border-radius: var(--radii-md);
+    justify-content: center;
+    text-decoration: none;
+    transition: text-shadow 0.3s, transform 0.3s, background-color 0.3s ease;
+    cursor: pointer; /* Hand cursor on hover */
+}
+
+
+.login-container {
+    background-color: var(--colors-white);
+    color: var(--colors-primary);
+}
+
+
+/* ==============================
+   LOGO STYLES
+   ============================== */
+
+
+.logo {
+    flex: 0 0 auto; 
+    color: var(--colors-white);
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    max-width: 200px;  
+    overflow: hidden;  
+}
+
+body .logo img {
+    width: 300px; /* Adjust the size as needed */
+    height: auto;
+}
+
+.logo-container {
+    margin-top: 5px;  
+    text-align: center; 
+}
+
+.logo-image {
+    max-width: 300px; /* Big logo in centre of page. */
+    height: auto;    /* This maintains the aspect ratio of the logo. */
+}
+
+
+/* ==============================
+   SUBSCRIPTION STYLES
+   ============================== */
+
+/* Subscription Container */
+.subscription-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This will take up the full viewport height */
+}
+
+/* Subscription Promo Styling */
+.subscription-promo {
+    background-color: var(--colors-secondary); /* Red background */
+    padding: 2rem; /* Add some padding for spacing */
+    border-radius: var(--radii-md); /* Rounded corners */
+    text-align: center; /* Center the text elements */
+}
+
+.subscription-promo h3,
+.subscription-promo p,
+.subscription-promo button {
+    color: var(--colors-white); /* White text color */
+    margin-bottom: 1rem; /* Spacing between elements */
+}
+
+.subscription-promo button:hover {
+    background-color: var(--colors-primary); /* Change button color on hover */
+}
+
+
+
+/* ==============================
+   BUTTON STYLES
+   ============================== */
+
+button {
+    background-color: var(--colors-secondary);
+    color: var(--colors-white);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radii-md);
+    box-shadow: var(--shadows-xs);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--colors-primary);
+}
+
+
+/* ==============================
+   DROPDOWN STYLES
+   ============================== */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by default) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--colors-primary); /* Corrected this line */
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top:100%;
+    margin-top: 0;
+    z-index: 1000;
+    border-top: none;
+}
+
+
+/* Dropdown Links */
+.dropdown-content a {
+    color: white; /* Initial color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    
+
+}
+
+/* Change color on hover for dropdown links */
+.dropdown-content a:hover {
+    color: red;
+    background-color: #f5f5f5;
+}
+
+.dropdown-arrow {
+    margin-left: 5px; /* Adjust space between text and arrow */
+    fill: none;  /* Remove fill color */
+    stroke: #000; /* Set the stroke color */
+    transition: transform 0.3s ease-in-out; /* Optional: Add transition for smoother arrow flipping */
+}
+
+/* Rotate the arrow 180 degrees when the dropdown is active/open */
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+
+
+/* ==============================
+   MAIN CONTAINER STYLES
+   ============================== */
+
+
+/* Main Container Site Logo */
+.site-logo {
+    display: block;
+    margin: 0 auto; /* This will center the image */
+    max-width: 100%; /* This ensures the image doesn't overflow its container */
+}
+
+
+
+/* Search Icon */
+.search-icon {
+    font-family: "Font Awesome 6 Brands" !important; /* Assuming you're using Font Awesome */
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: var(--colors-appbarText); /* Color of the icon */
+}
+
+.search-icon:hover {
+    color: var(--colors-primary); /* Color on hover */
+}
+
+
+/* ==============================
+   SECTION GRID STYLES
+   ============================== */
+
+
+
+.section-grid {
+    margin-top: 2rem; /* spacing from the previous section */
+    margin-bottom: 2rem; /* spacing before the next section */
+}
+
+.section {
+    margin-top: 4rem;
+    height: 300px;
+    margin: 0.5rem 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border: 2px solid #14345B;
+    flex: 1 0 calc(50% - 1rem); /* This makes each box take up half the width minus a small margin */
+    background-color: #14345B; /* Navy blue background */
+}
+
+.section h1 {
+
+    color: white; /* text color */
+    font-size: 2rem; /* font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* shadow for better readability */
+}
+
+/* You can add the background images for each section once you have them */
+#top-tips-today {
+    background-image: url("{% static 'images/#Tips.png' %}");
+}
+
+#results {
+    background-image: url("{% static 'images/#Results.png' %}");
+}
+
+#coming-up {
+    background-image: url("{% static 'images/#Coming Up.png' %}");
+}
+
+#chatrooms {
+    background-image: url("{% static 'images/#Chat.png' %}");
+}
+
+
+
+
+/* ==============================
+   FOOTER STYLES
+   ============================== */
+
+
+footer {
+    background-color: var(--colors-secondary); /* set to secondary color */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem; /* add some padding for spacing */
+    
+       
+    
+}
+
+.social-icons {
+    display: flex;
+    justify-content: flex-end; /* align to the right */
+    align-items: center;
+    gap: 1rem; /* space between icons */
+}
+
+.social-icons a {
+    color: var(--colors-white); /* icon color */
+    font-size: 1.5rem; /* icon size */
+    transition: color 0.3s; /* smooth color transition */
+}
+
+.social-icons a:hover {
+    color: var(--colors-primary); /* change color on hover */
+}
+
+
+.footer-nav {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.footer-nav li {
+    margin: 0;
+}
+
+.footer-nav a {
+    color: var(--colors-white); /* Set color to white */
+    font-family: 'Montserrat', sans-serif; /* Set font to Montserrat */
+    text-decoration: none; /* Optional: remove underline */
+    transition: color 0.3s; /* Optional: smooth color transition on hover */
+}
+
+
+
+.footer-nav a:hover {
+    color: var(--colors-primary); /* Optional: change color on hover */
+}
+
+
+
+
+
+/* ==============================
+   SPORTS GRID STYLES
+   ============================== */
+
+.sports-grid {
+    margin-top: 2rem; /* spacing from the jumbotron */
+    margin-bottom: 4rem; /* spacing before the next section */
+
+}
+
+.sport {
+    height: 300px;
+    margin: 0.5rem 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border: 2px solid #14345B;
+    flex: 1 0 calc(50% - 1rem); /* This makes each box take up half the width minus a small margin */
+    
+}
+
+.sport:hover, .section:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    filter: brightness(0.9);
+    z-index: 1;
+    transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+}
+    
+    
+.sport h1 {
+    color: white; /* text color */
+    font-size: 2rem; /* font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* shadow for better readability */
+}
+
+/* ==============================
+  Chat Room Styling
+   ============================== */
+.chat-room {
+    flex: 1; /* This allows the chat-room to take the most space */
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative; /* To position the input at the bottom */
+}
+
+#user-list li:hover {
+    background-color: var(--colors-light-gray);
+}
+
+
+#messages {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+#messages::-webkit-scrollbar {
+    width: 5px;
+}
+#messages::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+#messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+#message {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px; 
+}
+
+.message-sender {
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.message-receiver {
+    background-color: var(--colors-secondary);
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+#message:focus {
+    border-color: var(--colors-primary);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+.message-sender {
+    text-align: right; /* Aligns sender messages to the right */
+}
+.message-receiver {
+    text-align: left; /* Aligns receiver messages to the left */
+}
+
+
+button {
+    padding: 10px 20px;
+    background-color: var(--colors-secondary); /* Assuming red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--colors-primary); /* Some other color for hover */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+#online-users h3 {
+    margin-bottom: 10px;
+    color: var(--colors-primary);
+}
+
+#user-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+#user-list li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.message-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+emoji-picker {
+    width: 250px; /* Adjust as needed */
+    height: 350px; /* Adjust as needed */
+    display: block;
+    z-index: 1000;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    emoji-picker {
+        width: 50px; /* Adjust size for smaller screens */
+        height: 50px;
+    }
+}
+
+
+
+/*CSS for Chat.html */
+
+#football-home {
+    background-image: url("/static/images/football-arena-new.03159564409f.svg");
+}
+
+#horse-racing-home {
+    background-image: url("/static/images/horse-racing-arena-new.fe1e0712a678.svg");
+}
+
+#tennis-home {
+    background-image: url("/static/images/tennis-arena-new.baceaed726b8.svg");
+}
+
+#golf-home {
+    background-image: url("/static/images/golf-arena-new.f9f192190cb7.svg");
+}
+
+
+/* CSS for index.html */
+#football {
+    background-image: url("/static/images/football-arena-new.03159564409f.svg");
+}
+
+#horse-racing {
+    background-image: url("/static/images/horseracing.063ebe026e19.png");
+}
+
+#tennis {
+    background-image: url("/static/images/tennis.3bd0137406fb.png");
+}
+
+#golf {
+    background-image: url("/static/images/golf.f97a1def77c7.png");
+}
+
+#top-tips-today {
+    background-image: url("/static/images/Tip1.64e3860fe036.png");
+}
+
+#results {
+    background-image: url("/static/images/Results1.ba727b36fb36.png");
+}
+
+#coming-up {
+    background-image: url("/static/images/Upcoming1.767a00483fb0.png");
+}
+
+#chatrooms {
+    background-image: url("/static/images/chat1.fa60bef81f0e.png");
+}
+
+
+#football-chat {
+    background-image: url("/static/images/football_chat.f7bdc1afd777.png");
+}
+
+#horse-racing {
+    background-image: url("/static/images/horseracing.063ebe026e19.png");
+}
+
+#tennis {
+    background-image: url("/static/images/tennis.3bd0137406fb.png");
+}
+
+#golf {
+    background-image: url("/static/images/golf.f97a1def77c7.png");
+}
+
+
+/* Chat */
+#chat {
+    background-image: url("/static/images/chat1.fa60bef81f0e.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Fixtures & Results */
+#fixtures-results {
+    background-image: url("/static/images/Results1.ba727b36fb36.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Tips */
+#tips {
+    background-image: url("/static/images/Tip1.64e3860fe036.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* In Play */
+#in-play {
+    background-image: url("/static/images/racinginplay.7ea8ea1c3ca2.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/*Football */
+#football-chat {
+    background-image: url("/static/images/football_chat.f7bdc1afd777.png");
+}
+
+#football-fixtures-results {
+    background-image: url("/static/images/football-fixtures-results-chat.a595abbf5589.png");
+}
+
+#football-tips {
+    background-image: url("/static/images/football-tips.cadc29776843.png");
+}
+
+#football-in-play {
+    background-image: url("/static/images/football-in-play.27a1afffbe92.png");
+}
+
+
+
+/* Horse Racing Chat */
+#horse-racing-chat {
+    background-image: url("/static/images/horse_racing_chat.56c609beedd2.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Meetings & Results */
+#horse-racing-meetings-results {
+    background-image: url("/static/images/meetings.047ebe16496e.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Racing Tips */
+#horse-racing-tips {
+    background-image: url("/static/images/racing-tips.c2c1b635ea5b.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Horse Racing In Play */
+#next-to-the-post {
+    background-image: url("/static/images/racinginplay.7ea8ea1c3ca2.png"); /* Adjust the path as needed */
+    background-size: cover;
+}
+
+/* Golf.html */
+#golf-chat {
+    background-image: url("/static/images/golf_chat.932dcffb713f.png");
+    background-size: cover;
+}
+
+/* Golf Fixtures & Results */
+#golf-fixtures-results {
+    background-image: url("/static/images/tour-events.319f4ed7e5bd.png");
+    background-size: cover;
+}
+
+/* Golf Tips */
+#golf-tips {
+    background-image: url("/static/images/golf-tips.9238b530c2e1.png");
+    background-size: cover;
+}
+
+/* Golf In Play */
+#golf-in-play {
+    background-image: url("/static/images/golf-in-play.bf4ae92a8195.png");
+    background-size: cover;
+}
+/* Tennis.html */
+#tennis-chat {
+    background-image: url("/static/images/tennis_chat.9659378c4bd9.png");
+    background-size: cover;
+}
+
+/* Tennis Fixtures & Results */
+#tennis-fixtures-results {
+    background-image: url("/static/images/tennis-fixtures.eceba913c0fc.png");
+    background-size: cover;
+}
+
+/* Tennis Tips */
+#tennis-tips {
+    background-image: url("/static/images/tennis-tips.3fd0e18cbac7.png");
+    background-size: cover;
+}
+
+/* Tennis In Play */
+#tennis-in-play {
+    background-image: url("/static/images/tennis-in-play.62e97a98186f.png");
+    background-size: cover;
+}
+
+/* ==============================
+  Card Styling
+   ============================== */
+ 
+   .custom-card {
+       border: none;
+       border-radius: 10px;
+       background-color: var(--colors-lightBg);
+       color: var(--colors-text);
+       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+   }
+
+   .custom-card-header {
+       background-color: var(--colors-primary);
+       color: var(--colors-white);
+       font-family: var(--fonts-heading);
+       border-bottom: none;
+   }
+
+   .custom-card-body {
+       font-family: var(--fonts-paragraph);
+   }
+
+   .custom-btn {
+       background-color: hsl(0, 94%, 46%);;
+       border: none;
+       color: var(--colors-white);
+   }
+
+   .custom-btn:hover {
+       background-color: darken(var(--colors-secondary), 10%);
+   }
+
+
+/* ==============================
+  error messages
+   ============================== */
+   #error-message {
+    color: red;
+}
+
+/* ==============================
+   MEDIA QUERIES
+   ============================== */
+   @media (max-width: 768px) {
+    nav a {
+        font-size: 1rem; /* Adjusted font size */
+    }
+}
+
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    .logo img {
+        width: 150px; /* Adjust as needed */
+    }
+    .nav-container {
+        flex-direction: column;
+    }
+
+    .main-nav ul, .right-nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-icon, .nav-text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .nav-text {
+        font-size: 1rem; /* Adjust as needed */
+    }
+}
+
+
+
+.match {
+    background-color: var(--colors-darkBg);
+    color: var(--colors-lightText);
+    padding: var(--space-4);
+    border-radius: var(--radii-md);
+    box-shadow: var(--shadows-sm);
+}
+
+
+/* Style for the main content */
+.container {
+    width: 90%;
+    margin: auto;
+    padding-top: 20px;
+  }
+  
+  /* Style for forms */
+  form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box; /* Added to include padding in width */
+  }
+  
+  input[type="submit"] {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #4cae4c;
+  }
+  
+  /* Style for tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .plans-container {
+    margin-bottom: 50px;
+}
+
+.plan {
+    margin-bottom: 20px;
+}
+
+
+.chat-logo-image {
+    width: 100%;
+    height: auto;
+    display: block; /* This ensures the image takes the full line */
+    margin: 0 auto; /* Centers the image if it's not as wide as the container */
+}
+
+.football-logo-image{
+    width: 100%;
+    height: auto;
+    display: block; /* This ensures the image takes the full line */
+    margin: 0 auto; /* Centers the image if it's not as wide as the container */
+}
+
+
+.golf-logo-image{
+    width: 100%;
+    height: auto;
+    display: block; /* This ensures the image takes the full line */
+    margin: 0 auto; /* Centers the image if it's not as wide as the container */
+
+
+}
+
+.tennis-logo-image{
+    width: 100%;
+    height: auto;
+    display: block; /* This ensures the image takes the full line */
+    margin: 0 auto; /* Centers the image if it's not as wide as the container */
+
+
+}
+.racing-logo-image{
+
+    width: 100%;
+    height: auto;
+    display: block; /* This ensures the image takes the full line */
+    margin: 0 auto; /* Centers the image if it's not as wide as the container */
+
+}

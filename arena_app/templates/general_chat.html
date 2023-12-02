@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main>
+    <div class="container mt-5">
+        <h2>Chat Room</h2>
+        <div class="d-flex">
+            <div class="chat-room">
+                <ul id="messages"></ul>
+                <div class="message-input-container">
+                    <emoji-picker></emoji-picker><!-- Added emoji picker element -->
+                    <input id="message" autocomplete="off" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+                 
+                <!-- Error message placeholder -->
+                <div id="error-message"></div>
+            </div>
+            <div id="online-users">
+                <h3>Online Users</h3>
+                <ul id="user-list"></ul>
+            </div>
+        </div>   
+    </div>
+</main>
+
+<!-- Socket.IO JavaScript -->
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    var username = "{{ user.username }}";  // Pass the username from Django to JavaScript
+</script>
+
+<!-- Your chat.js script -->
+<script type="module" src="{% static 'js/chat.js' %}"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

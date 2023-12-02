@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+ <!-- Tips Content -->
+ <div class="container section-grid">
+    <div class="row">
+        <!-- Football Tips -->
+        <div class="col-lg-6 mb-2 section" id="football-tips">
+            {% for tip in football_tips %}
+                <!-- Display each football tip -->
+            {% endfor %}
+        </div>
+        <!-- Racing Tips-->
+        <div class="col-lg-6 mb-2 section" id="horse-racing-tips">
+            {% for tip in racing_tips %}
+                <!-- Display each racing tip -->
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Repeat for other sports -->
+</div>
+</main>
+{% endblock %}
