@@ -73,14 +73,17 @@ class Tip(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # Add any additional fields for tips (e.g., sport, category, etc.)
 
+
 class Follower(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+
 
 class ChatMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
 
 class Subscription(models.Model):
     SUBSCRIPTION_CHOICES = [
@@ -95,8 +98,6 @@ class Subscription(models.Model):
     subscription_type = models.CharField(max_length=10, choices=SUBSCRIPTION_CHOICES)
 
 
-
-
 # SPORTS
 
 class Sport(models.Model):
@@ -106,6 +107,7 @@ class Sport(models.Model):
         return self.name
     # Add any additional fields for sports (e.g., image, description, etc.)
 
+
 class Team(models.Model):
     name = models.CharField(max_length=255, unique=True)
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
@@ -113,6 +115,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
     # Add any additional fields for teams (e.g., logo, description, etc.)
+
 
 class Fixture(models.Model):
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
@@ -124,6 +127,7 @@ class Fixture(models.Model):
         return self.sport
     # Add any additional fields for fixtures (e.g., venue, status, etc.)
 
+
 class Result(models.Model):
     fixture = models.OneToOneField(Fixture, on_delete=models.CASCADE)
     team_home_score = models.PositiveIntegerField()
@@ -132,6 +136,7 @@ class Result(models.Model):
     def __str__(self):
         return self.fixture
     # Add any additional fields for results
+
 
 class LiveScore(models.Model):
     fixture = models.OneToOneField(Fixture, on_delete=models.CASCADE)
@@ -142,6 +147,7 @@ class LiveScore(models.Model):
     def __str__(self):
         return self.fixture
     # Add any additional fields for live scores
+
 
 class SportsOdds(models.Model):
     fixture = models.OneToOneField(Fixture, on_delete=models.CASCADE)

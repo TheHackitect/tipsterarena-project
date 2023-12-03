@@ -39,9 +39,11 @@ class SubscriptionAdmin(admin.ModelAdmin):
 class SportAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'sport')
+
 
 @admin.register(Fixture)
 class FixtureAdmin(admin.ModelAdmin):
@@ -54,6 +56,7 @@ class ResultAdmin(admin.ModelAdmin):
 @admin.register(LiveScore)
 class LiveScoreAdmin(admin.ModelAdmin):
     list_display = ('fixture', 'team_home_score', 'team_away_score', 'status')
+
 
 @admin.register(SportsOdds)
 class SportsOddsAdmin(admin.ModelAdmin):
