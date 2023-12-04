@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm
 
 
 # Create your views here.
 def index(request):
-    return redirect(request, 'home/')
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, 'index.html')
 
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -67,6 +71,7 @@ def privacy_policy(request):
 def register(request):
     return render(request, 'register.html')
 
+
 def signin(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
@@ -87,4 +92,4 @@ def signin(request):
 
 def signout(request):
     logout(request)
-    return redirect('home')  # Redirect to home or login page
+    return redirect('index')  # Redirect login page

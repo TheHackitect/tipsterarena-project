@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.conf.urls import handler404
 
 urlpatterns = [
-    path('', views.home, name='index'),
+    path('', views.index, name='index'),
     path('home/', views.home, name='home'),
     path('football/', views.football, name='football'),
     path('horse_racing/', views.horse_racing, name='horse_racing'),
