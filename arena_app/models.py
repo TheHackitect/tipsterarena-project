@@ -6,6 +6,7 @@ from django.template.defaultfilters import truncatechars
 
 # USERS
 
+
 class SubscriptionPlan(models.Model):
     name = models.CharField(max_length=50, unique=True)
     price_monthly = models.DecimalField(max_digits=6, decimal_places=2)
@@ -13,6 +14,7 @@ class SubscriptionPlan(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class UserProfileManager(BaseUserManager):
     def create_user(self, email, username, name, password=None, **extra_fields):
@@ -28,6 +30,7 @@ class UserProfileManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, username, name, password, **extra_fields)
+
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
@@ -66,6 +69,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
 
 class Tip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
