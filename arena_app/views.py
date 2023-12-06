@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm
 
@@ -81,21 +82,33 @@ def register(request):
 
 
 def signin(request):
+    # Redirect authenticated users to the home page
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
                 login(request, user)
                 return redirect('home')  # Adjust the URL as needed
+            else:
+                # If authentication fails, add an error message
+                messages.error(request, 'Invalid username or password.')
+
+        else:
+            # If form is not valid, add form errors as messages
+            for field in form:
+                for error in field.errors:
+                    messages.error(request, f"{field.label}: {error}")
 
     else:
         form = UserLoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 def signout(request):
     logout(request)
