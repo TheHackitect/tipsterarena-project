@@ -1,5 +1,6 @@
 # models.py
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.template.defaultfilters import truncatechars
@@ -72,19 +73,19 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
 
 class Tip(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     # Add any additional fields for tips (e.g., sport, category, etc.)
 
 
 class Follower(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='following')
+    follower = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='followers')
 
 
 class ChatMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -95,7 +96,7 @@ class Subscription(models.Model):
         ('yearly', 'Yearly'),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()  # Set when the subscription is activated
     status = models.BooleanField(default=True)  # True for active, False for inactive

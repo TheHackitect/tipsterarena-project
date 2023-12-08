@@ -91,6 +91,7 @@ def signin(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
+            print("Authenticated user:", user)  # Debugging line
 
             if user is not None:
                 login(request, user)
@@ -98,6 +99,7 @@ def signin(request):
             else:
                 # If authentication fails, add an error message
                 messages.error(request, 'Invalid username or password.')
+                print("Authentication failed")  # Debugging line
 
         else:
             # If form is not valid, add form errors as messages
