@@ -770,40 +770,40 @@ emoji-picker {
 }
 
 #football-fixtures-results {
-    background-image: url('/static/images/football-fixtures-results-chat.png');
+    background-image: url('/static/images/fixtures_results.png');
 }
 
 #football-tips {
-    background-image: url('/static/images/football-tips.png');
+    background-image: url('/static/images/latest_tips.png');
 }
 
 #football-in-play {
-    background-image: url('/static/images/football-in-play.png');
+    background-image: url('/static/images/football_inplay.png');
 }
 
 
 /*horse_racing.html */
 /* Horse Racing Chat */
-#horse-racing-chat {
-    background-image: url('/static/images/racing_tips.png'); /* Adjust the path as needed */
+#horse-racing-submit-tips {
+    background-image: url('/static/images/latest_racing_tips.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
 /* Meetings & Results */
 #horse-racing-meetings-results {
-    background-image: url('/static/images/meetings.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/race_meetings.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
 /* Racing Tips */
 #horse-racing-tips {
-    background-image: url('/static/images/racing-tips.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/racing_tips.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
 /* Horse Racing In Play */
 #next-to-the-post {
-    background-image: url('/static/images/racinginplay.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/at_the_post.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
