@@ -2,7 +2,9 @@
 {% load static %}
 {% block content %}
   <main>
-    <h3>Welcome, {{ user.username }}</h3>
+    <div class="welcome-message">
+      <h6>Welcome, {{ user.username }}</h6>
+    </div>
     <div class="container sports-grid">
       <div class="row">
         <!-- Football -->
@@ -36,4 +38,7 @@
     <!-- New Section Grid -->
     <!-- ... (rest of the content remains unchanged) ... -->
   </main>
+
+
+
 {% endblock %}
