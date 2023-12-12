@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm
+from .models import Fixture, Tip
+from .forms import BettingTipForm
 
 
 # Create your views here.
@@ -115,3 +117,27 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('index')  # Redirect login page
+
+
+@login_required
+def submit_football_tip(request):
+    if request.method == 'POST':
+        form = BettingTipForm(request.POST)
+        if form.is_valid():
+            # Create a new Tip instance but don't save it to the database yet
+            new_tip = form.save(commit=False)
+            new_tip.user = request.user  # Assign the current user to the tip
+            # Handle additional fields if they are part of your form
+            # e.g., new_tip.additional_field = form.cleaned_data['additional_field']
+            new_tip.save()  # Save the tip to the database
+            return redirect('submission_success')  
+            # Redirect to a success page or another appropriate page
+    else:
+        form = BettingTipForm()  # Create a new form instance for a GET request
+        fixtures = Fixture.objects.all()
+    return render(request, 'football_tips.html', {'form': form, 'fixtures': fixtures})
+
+
+def submission_success(request):
+    return render(request, 'submission_success.html')
+

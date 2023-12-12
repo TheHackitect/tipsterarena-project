@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Football Betting Tips{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="custom-card-header">Submit Your Football Tip</h2>
+    <form id="bettingForm" class="custom-card" method="post" action="{% url 'submit_football_tip' %}">
+        {% csrf_token %}
+        
+        <!-- Rendering Django Form Fields -->
+        {{ form.as_p }}
+
+        <!-- Script for handling dynamic fields -->
+        <script>
+            function updateBetTypeFields() {
+                var betType = document.getElementById("betType").value;
+                // JavaScript to dynamically show/hide additional input fields based on the selected bet type
+            }
+        </script>
+
+        <!-- Submit Button -->
+        <button type="submit" class="custom-btn">Submit Tip</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
+from .models import Tip 
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -22,3 +23,11 @@ class UserRegistrationForm(UserCreationForm):
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class BettingTipForm(forms.ModelForm):
+    class Meta:
+        model = Tip
+        fields = ['match', 'bet_type', 'odds', 'additional_info']
+    
+

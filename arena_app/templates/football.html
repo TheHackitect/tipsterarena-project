@@ -5,10 +5,11 @@
     <!-- Football Content -->
     <div class="container section-grid">
         <div class="row">
-            <!-- Chat -->
-            <div class="col-lg-6 mb-2 section" id="football-chat">
-                <!-- Dynamic content for chat can be added here -->
-            </div>
+            <!-- Submit Football Tips -->
+            <a href="{% url 'submit_football_tip' %}" class="col-lg-6 mb-2 section" id="football-upload-tips">
+                <!-- Dynamic content for submit tips can be added here -->
+            </a>
+            
             <!-- Fixtures & Results -->
             <div class="col-lg-6 mb-2 section" id="football-fixtures-results">
                 <!-- Dynamic content for fixtures & results can be added here -->
@@ -17,7 +18,7 @@
         <div class="row">
             <!-- Tips -->
             <div class="col-lg-6 mb-2 section" id="football-tips">
-                <!-- Dynamic content for tips can be added here -->
+                <!-- Additional dynamic content for tips can be added here -->
             </div>
             <!-- In Play -->
             <div class="col-lg-6 mb-2 section" id="football-in-play">
@@ -25,7 +26,5 @@
             </div>
         </div>
     </div>
-
-
 
 {% endblock %}

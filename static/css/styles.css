@@ -670,22 +670,22 @@ emoji-picker {
 
 
 
-/*CSS for Chat.html */
+/*CSS for home.html */
 
 #football-home {
-    background-image: url('/static/images/football-arena-new.svg');
+    background-image: url('/static/images/football_home.png');
 }
 
 #horse-racing-home {
-    background-image: url('/static/images/horse-racing-arena-new.svg');
+    background-image: url('/static/images/horse_racing_home.png');
 }
 
 #tennis-home {
-    background-image: url('/static/images/tennis-arena-new.svg');
+    background-image: url('/static/images/tennis_home.png');
 }
 
 #golf-home {
-    background-image: url('/static/images/golf-arena-new.svg');
+    background-image: url('/static/images/golf_home.png');
 }
 
 
@@ -695,7 +695,7 @@ emoji-picker {
 }
 
 #horse-racing {
-    background-image: url('/static/images/horseracing.png');
+    background-image: url('/static/images/horse_racing_home.png');
 }
 
 #tennis {
@@ -764,9 +764,9 @@ emoji-picker {
     background-size: cover;
 }
 
-/*Football */
-#football-chat {
-    background-image: url('/static/images/football_chat.png');
+/*Football.html */
+#football-upload-tips {
+    background-image: url('/static/images/football_tips.png');
 }
 
 #football-fixtures-results {
@@ -782,10 +782,10 @@ emoji-picker {
 }
 
 
-
+/*horse_racing.html */
 /* Horse Racing Chat */
 #horse-racing-chat {
-    background-image: url('/static/images/horse_racing_chat.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/racing_tips.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
@@ -809,7 +809,7 @@ emoji-picker {
 
 /* Golf.html */
 #golf-chat {
-    background-image: url('/static/images/golf_chat.png');
+    background-image: url('/static/images/golf_tips.png');
     background-size: cover;
 }
 
@@ -832,7 +832,7 @@ emoji-picker {
 }
 /* Tennis.html */
 #tennis-chat {
-    background-image: url('/static/images/tennis_chat.png');
+    background-image: url('/static/images/tennis_tips.png');
     background-size: cover;
 }
 

@@ -25,6 +25,8 @@ urlpatterns = [
     path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
     path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
+    path('submit-football-tip/', views.submit_football_tip, name='submit_football_tip'),
+    path('submission-success/', views.submission_success, name='submission_success'),
 ]
 
 

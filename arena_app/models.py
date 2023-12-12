@@ -71,39 +71,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-
-class Tip(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    # Add any additional fields for tips (e.g., sport, category, etc.)
-
-
-class Follower(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='following')
-    follower = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='followers')
-
-
-class ChatMessage(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
-class Subscription(models.Model):
-    SUBSCRIPTION_CHOICES = [
-        ('monthly', 'Monthly'),
-        ('yearly', 'Yearly'),
-    ]
-
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField()  # Set when the subscription is activated
-    status = models.BooleanField(default=True)  # True for active, False for inactive
-    subscription_type = models.CharField(max_length=10, choices=SUBSCRIPTION_CHOICES)
-
-
 # SPORTS
+
 
 class Sport(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -131,6 +100,45 @@ class Fixture(models.Model):
     def __str__(self):
         return self.sport
     # Add any additional fields for fixtures (e.g., venue, status, etc.)
+
+
+class Tip(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    # Add any additional fields for tips (e.g., sport, category, etc.)
+    # Additional fields for football betting tips
+    match = models.ForeignKey(Fixture, null=True, on_delete=models.CASCADE)
+    bet_type = models.CharField(max_length=100, null=True, blank=True)  # e.g., Match Odds, Correct Score, etc.
+    odds = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    additional_info = models.JSONField(blank=True, null=True)  # For storing dynamic bet details
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.match}"
+
+
+class Follower(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='following')
+    follower = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='followers')
+
+
+class ChatMessage(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Subscription(models.Model):
+    SUBSCRIPTION_CHOICES = [
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly'),
+    ]
+
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField()  # Set when the subscription is activated
+    status = models.BooleanField(default=True)  # True for active, False for inactive
+    subscription_type = models.CharField(max_length=10, choices=SUBSCRIPTION_CHOICES)
 
 
 class Result(models.Model):
