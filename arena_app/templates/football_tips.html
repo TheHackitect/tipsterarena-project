@@ -7,21 +7,38 @@
     <h2 class="custom-card-header">Submit Your Football Tip</h2>
     <form id="bettingForm" class="custom-card" method="post" action="{% url 'submit_football_tip' %}">
         {% csrf_token %}
-        
-        <!-- Rendering Django Form Fields -->
-        {{ form.as_p }}
 
-        <!-- Script for handling dynamic fields -->
-        <script>
-            function updateBetTypeFields() {
-                var betType = document.getElementById("betType").value;
-                // JavaScript to dynamically show/hide additional input fields based on the selected bet type
-            }
-        </script>
+        
+        <!-- Match Odds Section -->
+        <div class="form-group">
+            <label>Match Odds</label>
+            <div class="row">
+                <div class="col">
+                    <label>Home Team</label>
+                    <p>{{ form.match.home_team_name }}</p> <!-- Assuming form.match has home_team_name -->
+                    <input type="text" class="form-control" name="home_team_odds" placeholder="Odds for Home Win">
+                </div>
+                <div class="col">
+                    <label>Draw</label>
+                    <p></p>
+                    <input type="text" class="form-control" name="draw_odds" placeholder="Odds for Draw">
+                </div>
+                <div class="col">
+                    <label>Away Team</label>
+                    <p>{{ form.match.away_team_name }}</p> <!-- Assuming form.match has away_team_name -->
+                    <input type="text" class="form-control" name="away_team_odds" placeholder="Odds for Away Win">
+                </div>
+            </div>
+            <small class="form-text text-muted">
+                You are betting on 90 minutes plus any injury time only. Extra Time and Penalty Shootouts do not count. 2UP promo applies to pre-match single bets only.
+            </small>
+        </div>
+
+        <!-- Additional form fields -->
+        <!-- ... -->
 
         <!-- Submit Button -->
         <button type="submit" class="custom-btn">Submit Tip</button>
     </form>
 </div>
 {% endblock %}
-

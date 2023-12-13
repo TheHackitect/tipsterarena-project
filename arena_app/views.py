@@ -118,7 +118,6 @@ def signout(request):
     logout(request)
     return redirect('index')  # Redirect login page
 
-
 @login_required
 def submit_football_tip(request):
     if request.method == 'POST':
@@ -127,11 +126,15 @@ def submit_football_tip(request):
             # Create a new Tip instance but don't save it to the database yet
             new_tip = form.save(commit=False)
             new_tip.user = request.user  # Assign the current user to the tip
-            # Handle additional fields if they are part of your form
-            # e.g., new_tip.additional_field = form.cleaned_data['additional_field']
+            
+            # Handle additional fields
+            new_tip.home_team_odds = form.cleaned_data['home_team_odds']
+            new_tip.draw_odds = form.cleaned_data['draw_odds']
+            new_tip.away_team_odds = form.cleaned_data['away_team_odds']
+            # Handle any other additional fields as needed
+            
             new_tip.save()  # Save the tip to the database
-            return redirect('submission_success')  
-            # Redirect to a success page or another appropriate page
+            return redirect('submission_success')  # Redirect to a success page or another appropriate page
     else:
         form = BettingTipForm()  # Create a new form instance for a GET request
         fixtures = Fixture.objects.all()

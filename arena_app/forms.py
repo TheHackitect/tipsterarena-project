@@ -25,9 +25,18 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
+from django import forms
+from .models import Tip
+
 class BettingTipForm(forms.ModelForm):
+    home_team_odds = forms.DecimalField(max_digits=5, decimal_places=2)
+    draw_odds = forms.DecimalField(max_digits=5, decimal_places=2)
+    away_team_odds = forms.DecimalField(max_digits=5, decimal_places=2)
+    # ... other fields ...
+
     class Meta:
         model = Tip
-        fields = ['match', 'bet_type', 'odds', 'additional_info']
-    
+        fields = ['match', 'home_team_odds', 'draw_odds', 'away_team_odds', 'additional_info']
+        # Add other fields as necessary
+
 
