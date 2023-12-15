@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegistrationForm
-from .models import Fixture, Tip
 from .forms import BettingTipForm
+from .models import Tip
+
 
 
 # Create your views here.
@@ -118,27 +119,29 @@ def signout(request):
     logout(request)
     return redirect('index')  # Redirect login page
 
+
 @login_required
-def submit_football_tip(request):
+def submit_tips(request):
     if request.method == 'POST':
         form = BettingTipForm(request.POST)
         if form.is_valid():
             # Create a new Tip instance but don't save it to the database yet
             new_tip = form.save(commit=False)
             new_tip.user = request.user  # Assign the current user to the tip
-            
-            # Handle additional fields
-            new_tip.home_team_odds = form.cleaned_data['home_team_odds']
-            new_tip.draw_odds = form.cleaned_data['draw_odds']
-            new_tip.away_team_odds = form.cleaned_data['away_team_odds']
-            # Handle any other additional fields as needed
+
+            # If additional fields are not part of the Tip model, manually assign them
+            new_tip.sport = form.cleaned_data['sport']
+            new_tip.bet_description = form.cleaned_data['bet_description']
+            new_tip.reasoning = form.cleaned_data['reasoning']
+            new_tip.odds_given = form.cleaned_data['odds_given']
             
             new_tip.save()  # Save the tip to the database
-            return redirect('submission_success')  # Redirect to a success page or another appropriate page
+            return redirect('submission_success')  # Redirect to a success page
     else:
-        form = BettingTipForm()  # Create a new form instance for a GET request
-        fixtures = Fixture.objects.all()
-    return render(request, 'football_tips.html', {'form': form, 'fixtures': fixtures})
+        form = BettingTipForm()  # Instantiate a blank form for GET request
+
+    return render(request, 'submit_tips.html', {'form': form})
+
 
 
 def submission_success(request):

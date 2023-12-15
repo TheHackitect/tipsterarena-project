@@ -25,18 +25,41 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
+
 from django import forms
 from .models import Tip
 
+
 class BettingTipForm(forms.ModelForm):
-    home_team_odds = forms.DecimalField(max_digits=5, decimal_places=2)
-    draw_odds = forms.DecimalField(max_digits=5, decimal_places=2)
-    away_team_odds = forms.DecimalField(max_digits=5, decimal_places=2)
-    # ... other fields ...
+    # Dropdown for sport selection
+    SPORT_CHOICES = [
+        ('Football', 'Football'),
+        ('Golf', 'Golf'),
+        ('Horse Racing', 'Horse Racing'),
+        ('Tennis', 'Tennis'),
+    ]
+    sport = forms.ChoiceField(choices=SPORT_CHOICES)
+
+    # Textarea for bet description
+    bet_description = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 3, 'maxlength': 250}),
+        label="Bet Description"
+    )
+
+    # Optional textarea for reasoning
+    reasoning = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 6, 'maxlength': 1000}),
+        required=False,
+        label="Reasoning (Optional)"
+    )
+
+    # Input for the odds
+    odds_given = forms.DecimalField(
+        max_digits=5, 
+        decimal_places=2,
+        label="Odds"
+    )
 
     class Meta:
         model = Tip
-        fields = ['match', 'home_team_odds', 'draw_odds', 'away_team_odds', 'additional_info']
-        # Add other fields as necessary
-
-
+        fields = ['sport', 'bet_description', 'reasoning', 'odds_given']

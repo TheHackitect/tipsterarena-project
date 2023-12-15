@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit Your Tip{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="custom-card-header">Submit Your Tip</h2>
+    <form id="bettingForm" class="custom-card" method="post" action="{% url 'submit_tips' %}">
+        {% csrf_token %}
+
+        <!-- Sport Selection Dropdown -->
+        <div class="form-group">
+            <label for="sportSelection">Choose a Sport:</label>
+            <select id="sportSelection" name="sport" class="form-control">
+                <option value="Football">Football</option>
+                <option value="Golf">Golf</option>
+                <option value="Horse Racing">Horse Racing</option>
+                <option value="Tennis">Tennis</option>
+            </select>
+        </div>
+
+        <!-- Bet Description -->
+        <div class="form-group">
+            <label for="betDescription">Bet Description:</label>
+            <textarea id="betDescription" name="betDescription" class="form-control" rows="3" maxlength="250" placeholder="Describe your bet, e.g., Tottenham vs Manchester United. Tottenham to win."></textarea>
+        </div>
+
+        <!-- Reasoning (Optional) -->
+        <div class="form-group">
+            <label for="reasoning">Reasoning (Optional):</label>
+            <textarea id="reasoning" name="reasoning" class="form-control" rows="6" maxlength="1000" placeholder="Your reasoning for the bet (optional)"></textarea>
+        </div>
+
+        <!-- Tip Given -->
+        <div class="form-group">
+            <label for="oddsGiven">Odds:</label>
+            <input type="text" id="oddsGiven" name="oddsGiven" class="form-control" placeholder="Enter the odds you obtained">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="custom-btn">Submit Tip</button>
+    </form>
+</div>
+{% endblock %}

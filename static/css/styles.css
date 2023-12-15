@@ -723,9 +723,6 @@ emoji-picker {
 }
 
 
-#football-chat {
-    background-image: url('/static/images/football_chat.png');
-}
 
 #horse-racing {
     background-image: url('/static/images/horseracing.png');
@@ -765,20 +762,24 @@ emoji-picker {
 }
 
 /*Football.html */
-#football-upload-tips {
-    background-image: url('/static/images/football_tips.png');
+#loadtips {
+    background-image: url('/static/images/football-tips.png'); 
+    background-size: cover;
 }
 
 #football-fixtures-results {
     background-image: url('/static/images/fixtures_results.png');
+    background-size: cover;
 }
 
 #football-tips {
     background-image: url('/static/images/latest_tips.png');
+    background-size: cover;
 }
 
 #football-in-play {
     background-image: url('/static/images/football_inplay.png');
+    background-size: cover;
 }
 
 
@@ -808,8 +809,8 @@ emoji-picker {
 }
 
 /* Golf.html */
-#golf-chat {
-    background-image: url('/static/images/golf_tips.png');
+#submit-golf-tips{
+    background-image: url('/static/images/golf-tips.png');
     background-size: cover;
 }
 
@@ -831,9 +832,9 @@ emoji-picker {
     background-size: cover;
 }
 /* Tennis.html */
-#tennis-chat {
+#submit-tennis-tips {
     background-image: url('/static/images/tennis_tips.png');
-    background-size: cover;
+   
 }
 
 /* Tennis Fixtures & Results */
