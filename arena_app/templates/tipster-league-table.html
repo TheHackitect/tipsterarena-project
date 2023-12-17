@@ -12,38 +12,95 @@
 <div class="container my-5">
     <h2 class="mb-4">Top Tipsters</h2>
 
-    <!-- ... (tabs and their content) ... -->
+        <!-- Tabs for different sports and overall -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="overall-tab" data-bs-toggle="tab" data-bs-target="#overall" type="button" role="tab" aria-controls="overall" aria-selected="true">Overall</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="football-tab" data-bs-toggle="tab" data-bs-target="#Football" type="button" role="tab" aria-controls="football" aria-selected="false">Football</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="racing-tab" data-bs-toggle="tab" data-bs-target="#Racing" type="button" role="tab" aria-controls="racing" aria-selected="false">Horse Racing</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tennis-tab" data-bs-toggle="tab" data-bs-target="#Tennis" type="button" role="tab" aria-controls="tennis" aria-selected="false">Tennis</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="golf-tab" data-bs-toggle="tab" data-bs-target="#Golf" type="button" role="tab" aria-controls="golf" aria-selected="false">Golf</button>
+        </li>
+        <!-- ... Other sports tabs ... -->
+    </ul>
 
     <div class="tab-content" id="myTabContent">
-        <!-- Tab content for Overall, Football, Horse Racing, etc. -->
-        <!-- Example for the Overall tab -->
+        <!-- Tab content for Overall -->
         <div class="tab-pane fade show active" id="overall" role="tabpanel" aria-labelledby="overall-tab">
-            <table class="table table-striped mt-3">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Tips</th>
-                        <th scope="col">Wins</th>
-                        <th scope="col">Win Rate</th>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Bets Placed</th>
+                        <th>Wins</th>
+                        <th>Strike Rate (%)</th>
+                        <th>Average Odds</th>
+                        <th>Total Points</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for tipster in overall_tipsters %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ tipster.username }}</td>
-                            <td>{{ tipster.tips }}</td>
-                            <td>{{ tipster.wins }}</td>
-                            <td>{{ tipster.win_rate }}%</td>
-                        </tr>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ tipster.username }}</td>
+                        <td>{{ tipster.total_bets_placed }}</td>
+                        <td>{{ tipster.total_wins }}</td>
+                        <td>{{ tipster.win_rate|floatformat:2 }}</td>
+                        <td>{{ tipster.average_odds|floatformat:2 }}</td>
+                        <td>{{ tipster.points_balance }}</td>
+                    </tr>
                     {% empty %}
-                        <tr><td colspan="5">No tipsters available.</td></tr>
+                    <tr><td colspan="7">No tipsters available.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <!-- Similar structure for Football, Horse Racing, Tennis, Golf tabs -->
+            
+        </div>
+        <!-- Tab content for Football -->
+        <div class="tab-pane fade" id="football" role="tabpanel" aria-labelledby="football-tab">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Bets Placed</th>
+                        <th>Wins</th>
+                        <th>Strike Rate (%)</th>
+                        <th>Average Odds</th>
+                        <th>Total Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tipster in football_tipsters %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ tipster.username }}</td>
+                        <td>{{ tipster.total_bets_placed }}</td>
+                        <td>{{ tipster.total_wins }}</td>
+                        <td>{{ tipster.win_rate|floatformat:2 }}</td>
+                        <td>{{ tipster.average_odds|floatformat:2 }}</td>
+                        <td>{{ tipster.points_balance }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7">No tipsters available.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- ... Similar structure for other sports tabs ... -->
     </div>
+
+
+    
 </div>
 {% endblock %}

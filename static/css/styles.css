@@ -501,9 +501,6 @@ footer {
 }
 
 
-
-
-
 /* ==============================
    SPORTS GRID STYLES
    ============================== */
@@ -668,9 +665,10 @@ emoji-picker {
     }
 }
 
+/* ==============================
+ home.html
+   ============================== */
 
-
-/*CSS for home.html */
 
 #football-home {
     background-image: url('/static/images/football_home.png');
@@ -760,11 +758,15 @@ emoji-picker {
     background-image: url('/static/images/racinginplay.png'); /* Adjust the path as needed */
     background-size: cover;
 }
-
-/*Football.html */
-#loadtips {
-    background-image: url('/static/images/football-tips.png'); 
+/* ==============================
+ football.html
+   ============================== */
+#loadtips  {
+    background-image: url('/static/images/football_tips.png'); 
+    display: block; /* or display: flex; */
+    min-height: 200px; /* Adjust as needed */
     background-size: cover;
+    background-position: center;
 }
 
 #football-fixtures-results {
@@ -782,8 +784,9 @@ emoji-picker {
     background-size: cover;
 }
 
-
-/*horse_racing.html */
+/* ==============================
+ horse-racing.html
+   ============================== */
 /* Horse Racing Chat */
 #horse-racing-submit-tips {
     background-image: url('/static/images/latest_racing_tips.png'); /* Adjust the path as needed */
@@ -807,10 +810,11 @@ emoji-picker {
     background-image: url('/static/images/at_the_post.png'); /* Adjust the path as needed */
     background-size: cover;
 }
-
-/* Golf.html */
+/* ==============================
+ golf.html
+   ============================== */
 #submit-golf-tips{
-    background-image: url('/static/images/golf-tips.png');
+    background-image: url('/static/images/golf_tips.png');
     background-size: cover;
 }
 
@@ -831,7 +835,10 @@ emoji-picker {
     background-image: url('/static/images/golf-in-play.png');
     background-size: cover;
 }
-/* Tennis.html */
+/* ==============================
+ tennis.html
+   ============================== */
+
 #submit-tennis-tips {
     background-image: url('/static/images/tennis_tips.png');
    

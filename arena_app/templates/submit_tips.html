@@ -37,6 +37,16 @@
             <input type="text" id="oddsGiven" name="oddsGiven" class="form-control" placeholder="Enter the odds you obtained">
         </div>
 
+        <!-- Points Bet -->
+        <div class="form-group">
+            {{ form.points_bet.label_tag }} {{ form.points_bet }}
+            {% if form.points_bet.errors %}
+                <div class="alert alert-danger">
+                    {{ form.points_bet.errors }}
+                </div>
+            {% endif %}
+        </div>
+
         <!-- Submit Button -->
         <button type="submit" class="custom-btn">Submit Tip</button>
     </form>

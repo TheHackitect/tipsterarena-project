@@ -1,9 +1,10 @@
 # models.py
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.db.models import Avg
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
-from django.template.defaultfilters import truncatechars
+from django.utils import timezone
+
 
 # USERS
 
@@ -18,19 +19,23 @@ class SubscriptionPlan(models.Model):
 
 
 class UserProfileManager(BaseUserManager):
-    def create_user(self, email, username, name, password=None, **extra_fields):
+    def create_user(self, email, username,
+                    name, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, username=username, name=name, **extra_fields)
+        user = self.model(email=email, username=username,
+                          name=name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, name, password=None, **extra_fields):
+    def create_superuser(self, email, username, name,
+                         password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        return self.create_user(email, username, name, password, **extra_fields)
+        return self.create_user(email, username, name,
+                                password, **extra_fields)
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -43,7 +48,35 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     # Add additional fields for the user profile
     subscription_status = models.BooleanField(default=False)
     subscription_type = models.CharField(max_length=10, blank=True, null=True)
-    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
+    subscription_plan = models.ForeignKey(SubscriptionPlan,
+                                          on_delete=models.SET_NULL, null=True,
+                                          blank=True)
+
+    # Additional fields for the points system
+    points_balance = models.IntegerField(default=1000)
+    last_points_reset = models.DateField(auto_now_add=False,
+                                         default=timezone.now)
+
+    # New fields for tipster stats
+    total_bets_placed = models.IntegerField(default=0)
+    total_wins = models.IntegerField(default=0)
+
+    # Properties to calculate win rate and average odds
+    @property
+    def win_rate(self):
+        if self.total_bets_placed > 0:
+            return (self.total_wins / self.total_bets_placed) * 100
+        return 0
+
+    @property
+    def average_odds(self):
+        return self.tip_set.aggregate(Avg('odds'))['odds__avg'] or 0
+    
+    # Update the points balance (can be called monthly or as needed)
+    def reset_points(self):
+        self.points_balance = 1000
+        self.last_points_reset = timezone.now().date()
+        self.save()
 
     groups = models.ManyToManyField(
         Group,
@@ -93,8 +126,10 @@ class Team(models.Model):
 
 class Fixture(models.Model):
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
-    team_home = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_fixtures')
-    team_away = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_fixtures')
+    team_home = models.ForeignKey(Team, on_delete=models.CASCADE,
+                                  related_name='home_fixtures')
+    team_away = models.ForeignKey(Team, on_delete=models.CASCADE,
+                                  related_name='away_fixtures')
     date_time = models.DateTimeField()
 
     def __str__(self):
@@ -104,17 +139,18 @@ class Fixture(models.Model):
 
 class Tip(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    # Add any additional fields for tips (e.g., sport, category, etc.)
-    # Additional fields for football betting tips
-    match = models.ForeignKey(Fixture, null=True, on_delete=models.CASCADE)
-    bet_type = models.CharField(max_length=100, null=True, blank=True)  # e.g., Match Odds, Correct Score, etc.
+    sport = models.ForeignKey(Sport, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Sport
+    bet_type = models.CharField(max_length=100, null=True, blank=True)  # e.g., Match Odds, Correct Score
     odds = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    points_bet = models.IntegerField(default=0) # Points wagered
+    is_win = models.BooleanField(null=True, blank=True)  # True if win, False if loss, null if undecided
+    created_at = models.DateTimeField(auto_now_add=True)
     additional_info = models.JSONField(blank=True, null=True)  # For storing dynamic bet details
-    
+
     def __str__(self):
-        return f"{self.user.username} - {self.match}"
+        user_username = self.user.username if self.user else 'Unknown User'
+        sport_name = self.sport.name if self.sport else 'Unknown Sport'
+        return f"{user_username} - {sport_name}"
 
 
 class Follower(models.Model):

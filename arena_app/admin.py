@@ -21,8 +21,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Tip)
 class TipAdmin(admin.ModelAdmin):
-    list_display = ('user', 'content', 'created_at')
-    search_fields = ('user__username', 'content')
+    list_display = ('user', 'sport', 'bet_type', 'odds', 'points_bet', 'is_win', 'created_at')
+    search_fields = ('user__username', 'sport', 'bet_type') # Adjust as per your fields
 
 
 @admin.register(Follower)
