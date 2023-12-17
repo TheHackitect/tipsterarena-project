@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Case, When, IntegerField
 from .forms import UserLoginForm, UserRegistrationForm
 from .forms import BettingTipForm
-from .models import UserProfile
+from .models import UserProfile, TipsterStats
 
 
 # Create your views here.
@@ -123,7 +123,15 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+      
+            # Create a TipsterStats instance for the registered user
+            tipster_stats = TipsterStats.objects.create(user=user)
+            
+            # Debugging statements
+            print("User registered:", user)
+            print("TipsterStats created:", tipster_stats)
+        
             # Redirect to a success page.
             return redirect('signin')
         # Assuming 'signin' is the name of your login URL.
@@ -170,21 +178,23 @@ def signout(request):
 
 @login_required
 def submit_tips(request):
+    # Check if the user is authenticated
+    if not request.user.is_authenticated:
+        print("User is not authenticated")  # Add a print statement for debugging
+        return redirect('signin')
     # Retrieve the user's current points balance
-    user_profile = get_object_or_404(UserProfile,
-                                     username=request.user.username)
-    user_points_balance = user_profile.points_balance
+    user_profile = get_object_or_404(UserProfile, username=request.user.username)
+    user_tipster_stats = get_object_or_404(TipsterStats, user=user_profile)
+    user_points_balance = user_tipster_stats.points_balance
     # Replace with actual field name for points balance
 
     if request.method == 'POST':
-        form = BettingTipForm(request.POST,
-                              initial={'user_points_balance': user_points_balance})
+        form = BettingTipForm(request.POST, initial={'user_points_balance': user_points_balance})
         if form.is_valid():
             # Check if the points bet exceeds user's balance
             points_bet = form.cleaned_data['points_bet']
             if points_bet > user_points_balance:
-                form.add_error('points_bet',
-                               'You cannot bet more points than your current balance.')
+                form.add_error('points_bet', 'You cannot bet more points than your current balance.')
             else:
                 # Create a new Tip instance but don't save it to the database yet
                 new_tip = form.save(commit=False)
@@ -194,18 +204,32 @@ def submit_tips(request):
                 new_tip.reasoning = form.cleaned_data['reasoning']
                 new_tip.odds_given = form.cleaned_data['odds_given']
                 new_tip.points_bet = points_bet
+                
+                # Calculate points won
+                points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
 
-                # Update user's points balance
-                user_profile.points_balance -= points_bet
-                user_profile.save()
+                # Update user's tipster stats
+                user_tipster_stats.total_bets_placed += 1
+                if new_tip.is_win:
+                    user_tipster_stats.total_wins += 1
+
+                # Save the user's tipster stats
+                user_tipster_stats.save()
+
+                # Update user's points balance (this might be done in the
+                # calculate_points_won method)
+                user_points_balance = user_tipster_stats.points_balance
 
                 new_tip.save()  # Save the tip to the database
+                
+                 # Display or use the points_won variable as needed
+                messages.success(request, f'You won {points_won} points!')
+
                 return redirect('submission_success')  # Redirect to a success page
     else:
         form = BettingTipForm(initial={'user_points_balance': user_points_balance})
 
-    return render(request, 'submit_tips.html', {'form': form,
-                                                'points_balance': user_points_balance})
+    return render(request, 'submit_tips.html', {'form': form, 'points_balance': user_points_balance})
 
 
 def submission_success(request):

@@ -8,8 +8,16 @@ from django.utils import timezone
 
 # USERS
 
-
 class SubscriptionPlan(models.Model):
+    """
+    Represents a subscription plan in the application.
+
+    Attributes:
+        name (str): The name of the subscription plan.
+        price_monthly (Decimal): The monthly price of the subscription plan.
+        price_yearly (Decimal): The yearly price of the subscription plan.
+    """
+
     name = models.CharField(max_length=50, unique=True)
     price_monthly = models.DecimalField(max_digits=6, decimal_places=2)
     price_yearly = models.DecimalField(max_digits=6, decimal_places=2)
@@ -19,8 +27,25 @@ class SubscriptionPlan(models.Model):
 
 
 class UserProfileManager(BaseUserManager):
+    """
+    Custom manager for the User Profile model.
+    """
+
     def create_user(self, email, username,
                     name, password=None, **extra_fields):
+        """
+        Creates and saves a new user with the given details.
+
+        Args:
+            email (str): The email address of the user.
+            username (str): The username of the user.
+            name (str): The name of the user.
+            password (str, optional): The password of the user. Defaults to None.
+            **extra_fields: Additional fields to be saved in the user model.
+
+        Returns:
+            User: The newly created user.
+        """
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
@@ -32,6 +57,19 @@ class UserProfileManager(BaseUserManager):
 
     def create_superuser(self, email, username, name,
                          password=None, **extra_fields):
+        """
+        Creates and saves a new superuser with the given details.
+
+        Args:
+            email (str): The email address of the superuser.
+            username (str): The username of the superuser.
+            name (str): The name of the superuser.
+            password (str, optional): The password of the superuser. Defaults to None.
+            **extra_fields: Additional fields to be saved in the superuser model.
+
+        Returns:
+            User: The newly created superuser.
+        """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, username, name,
@@ -39,6 +77,42 @@ class UserProfileManager(BaseUserManager):
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """
+    Represents a user profile in the system.
+
+    Attributes:
+        name (str): The name of the user.
+        username (str): The unique username of the user.
+        email (str): The unique email address of the user.
+        is_staff (bool): Indicates if the user is a staff member.
+        is_active (bool): Indicates if the user is active.
+
+        subscription_status (bool): Indicates the subscription status of the user.
+        subscription_type (str): The type of subscription the user has.
+        subscription_plan (SubscriptionPlan): The subscription plan associated with the user.
+
+        points_balance (int): The current balance of points for the user.
+        last_points_reset (date): The date when the points were last reset.
+
+        total_bets_placed (int): The total number of bets placed by the user.
+        total_wins (int): The total number of wins by the user.
+
+    Properties:
+        win_rate (float): The win rate of the user, calculated as the percentage of wins out of total bets placed.
+        average_odds (float): The average odds of the user's tips.
+
+    Methods:
+        reset_points(): Resets the points balance of the user to the default value.
+
+    Relationships:
+        groups (ManyToManyField): The groups the user belongs to.
+        user_permissions (ManyToManyField): The specific permissions granted to the user.
+
+    Managers:
+        objects (UserProfileManager): The manager for the UserProfile model.
+
+    """
+
     name = models.CharField(max_length=255)
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
@@ -138,7 +212,7 @@ class Fixture(models.Model):
 
 
 class Tip(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='tips')
     sport = models.ForeignKey(Sport, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Sport
     bet_type = models.CharField(max_length=100, null=True, blank=True)  # e.g., Match Odds, Correct Score
     odds = models.DecimalField(max_digits=6, decimal_places=2, null=True)
@@ -148,9 +222,72 @@ class Tip(models.Model):
     additional_info = models.JSONField(blank=True, null=True)  # For storing dynamic bet details
 
     def __str__(self):
-        user_username = self.user.username if self.user else 'Unknown User'
+        user_username = self.user__username if self.user else 'Unknown User'
         sport_name = self.sport.name if self.sport else 'Unknown Sport'
         return f"{user_username} - {sport_name}"
+
+# New model for TipsterStats
+class TipsterStats(models.Model):
+    """
+    Represents the statistics and points balance of a tipster user.
+    """
+
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name='tipster_stats')
+    total_bets_placed = models.IntegerField(default=0)
+    total_wins = models.IntegerField(default=0)
+    points_balance = models.IntegerField(default=1000)
+    last_points_reset = models.DateField(auto_now_add=False, default=timezone.now)
+
+    def __str__(self):
+        return self.user.username if self.user else 'Unknown User'
+
+    @property
+    def win_rate(self):
+        """
+        Calculates the win rate of the tipster as a percentage.
+
+        Returns:
+            float: The win rate of the tipster.
+        """
+        if self.total_bets_placed > 0:
+            return (self.total_wins / self.total_bets_placed) * 100
+        return 0
+
+    @property
+    def average_odds(self):
+        """
+        Calculates the average odds of the tipster's bets.
+
+        Returns:
+            float: The average odds of the tipster's bets.
+        """
+        return self.user.tip_set.aggregate(Avg('odds'))['odds__avg'] or 0
+
+    def reset_points(self):
+        """
+        Resets the points balance of the tipster to the default value (1000).
+        Updates the last points reset date to the current date.
+        """
+        self.points_balance = 1000
+        self.last_points_reset = timezone.now().date()
+        self.save()
+
+    def calculate_points_won(self, bet_amount_in_points, odds):
+        """
+        Calculates the points won by the tipster when a bet is successful.
+
+        Args:
+            bet_amount_in_points (int): The amount of points bet on the bet.
+            odds (float): The odds of the bet.
+
+        Returns:
+            int: The points won by the tipster.
+        """
+        points_won = int(bet_amount_in_points * (odds - 1))
+        self.points_balance += points_won
+        self.save()
+        return points_won
+
 
 
 class Follower(models.Model):

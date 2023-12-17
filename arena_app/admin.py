@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     SubscriptionPlan, UserProfile, Tip, Follower,
     ChatMessage, Subscription, Sport, Team,
-    Fixture, Result, LiveScore, SportsOdds
+    Fixture, Result, LiveScore, SportsOdds,TipsterStats
 )
 
 # USERS
@@ -70,3 +70,9 @@ class LiveScoreAdmin(admin.ModelAdmin):
 @admin.register(SportsOdds)
 class SportsOddsAdmin(admin.ModelAdmin):
     list_display = ('fixture', 'team_home_odds', 'team_away_odds', 'draw_odds')
+    
+
+@admin.register(TipsterStats)
+class TipsterStatsAdmin(admin.ModelAdmin):
+    # Customize the display of TipsterStats in the admin panel if needed
+    list_display = ('user', 'total_bets_placed', 'total_wins', 'points_balance', 'last_points_reset')
