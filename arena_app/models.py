@@ -222,7 +222,7 @@ class Tip(models.Model):
     additional_info = models.JSONField(blank=True, null=True)  # For storing dynamic bet details
 
     def __str__(self):
-        user_username = self.user__username if self.user else 'Unknown User'
+        user_username = self.user_username if self.user else 'Unknown User'
         sport_name = self.sport.name if self.sport else 'Unknown Sport'
         return f"{user_username} - {sport_name}"
 

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Case, When, IntegerField
 from .forms import UserLoginForm, UserRegistrationForm
 from .forms import BettingTipForm
-from .models import UserProfile, TipsterStats
+from .models import UserProfile, TipsterStats, Sport
 
 
 # Create your views here.
@@ -184,48 +184,51 @@ def submit_tips(request):
         return redirect('signin')
     # Retrieve the user's current points balance
     user_profile = get_object_or_404(UserProfile, username=request.user.username)
-    user_tipster_stats = get_object_or_404(TipsterStats, user=user_profile)
+    # Check if the user has tipster stats, create if not exist
+    user_tipster_stats, _ = TipsterStats.objects.get_or_create(user=user_profile)
+    
     user_points_balance = user_tipster_stats.points_balance
     # Replace with actual field name for points balance
 
     if request.method == 'POST':
-        form = BettingTipForm(request.POST, initial={'user_points_balance': user_points_balance})
+        form = BettingTipForm(request.POST)
         if form.is_valid():
-            # Check if the points bet exceeds user's balance
-            points_bet = form.cleaned_data['points_bet']
-            if points_bet > user_points_balance:
-                form.add_error('points_bet', 'You cannot bet more points than your current balance.')
-            else:
-                # Create a new Tip instance but don't save it to the database yet
-                new_tip = form.save(commit=False)
-                new_tip.user = request.user
-                new_tip.sport = form.cleaned_data['sport']
-                new_tip.bet_description = form.cleaned_data['bet_description']
-                new_tip.reasoning = form.cleaned_data['reasoning']
-                new_tip.odds_given = form.cleaned_data['odds_given']
-                new_tip.points_bet = points_bet
-                
-                # Calculate points won
-                points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
+            sport_name = form.cleaned_data.get('sport')
+            try:
+                sport_instance = Sport.objects.get(name=sport_name)
+            except Sport.DoesNotExist:
+                form.add_error('sport', 'Invalid sport selected')
+                return render(request, 'submit_tips.html', {'form': form})
 
-                # Update user's tipster stats
-                user_tipster_stats.total_bets_placed += 1
-                if new_tip.is_win:
-                    user_tipster_stats.total_wins += 1
+            new_tip = form.save(commit=False)
+            new_tip.user = request.user
+            new_tip.sport = sport_instance
+            new_tip.bet_description = form.cleaned_data['bet_description']
+            new_tip.reasoning = form.cleaned_data['reasoning']
+            new_tip.odds_given = form.cleaned_data['odds_given']
+            new_tip.points_bet = form.cleaned_data['points_bet']
+        
+        # Calculate points won
+        points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
 
-                # Save the user's tipster stats
-                user_tipster_stats.save()
+        # Update user's tipster stats
+        user_tipster_stats.total_bets_placed += 1
+        if new_tip.is_win:
+            user_tipster_stats.total_wins += 1
 
-                # Update user's points balance (this might be done in the
-                # calculate_points_won method)
-                user_points_balance = user_tipster_stats.points_balance
+        # Save the user's tipster stats
+        user_tipster_stats.save()
 
-                new_tip.save()  # Save the tip to the database
-                
-                 # Display or use the points_won variable as needed
-                messages.success(request, f'You won {points_won} points!')
+        # Update user's points balance (this might be done in the
+        # calculate_points_won method)
+        user_points_balance = user_tipster_stats.points_balance
 
-                return redirect('submission_success')  # Redirect to a success page
+        new_tip.save()  # Save the tip to the database
+        
+        # Display or use the points_won variable as needed
+        messages.success(request, f'You won {points_won} points!')
+
+        return redirect('submission_success')  # Redirect to a success page
     else:
         form = BettingTipForm(initial={'user_points_balance': user_points_balance})
 

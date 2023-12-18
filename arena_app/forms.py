@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
-from .models import Tip
+from .models import Tip, Sport
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -84,7 +84,7 @@ class BettingTipForm(forms.ModelForm):
         ('Horse Racing', 'Horse Racing'),
         ('Tennis', 'Tennis'),
     ]
-    sport = forms.ChoiceField(choices=SPORT_CHOICES)
+    sport = forms.ModelChoiceField(queryset=Sport.objects.all(), empty_label="Choose a Sport")
 
     # Textarea for bet description
     bet_description = forms.CharField(

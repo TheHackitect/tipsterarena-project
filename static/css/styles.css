@@ -787,9 +787,9 @@ emoji-picker {
 /* ==============================
  horse-racing.html
    ============================== */
-/* Horse Racing Chat */
+/* Horse Racing Submit Tips */
 #horse-racing-submit-tips {
-    background-image: url('/static/images/latest_racing_tips.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/racing_tips.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
@@ -801,7 +801,7 @@ emoji-picker {
 
 /* Racing Tips */
 #horse-racing-tips {
-    background-image: url('/static/images/racing_tips.png'); /* Adjust the path as needed */
+    background-image: url('/static/images/latest_racing_tips.png'); /* Adjust the path as needed */
     background-size: cover;
 }
 
