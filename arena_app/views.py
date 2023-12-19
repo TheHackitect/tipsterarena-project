@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Case, When, IntegerField
 from .forms import UserLoginForm, UserRegistrationForm
 from .forms import BettingTipForm
-from .models import UserProfile, TipsterStats, Sport
+from .models import UserProfile, TipsterStats, Sport, Tip
 
 
 # Create your views here.
@@ -43,41 +43,41 @@ def golf(request):
 def tipster_league_table(request):
     # Query to get top tipsters for each category
     overall_tipsters = UserProfile.objects.annotate(
-        total_bets=Count('tip'),
-        total_wins_count=Sum(Case(When(tip__is_win=True, then=1), default=0,
+        total_bets=Count('tips'),
+        total_wins_count=Sum(Case(When(tips__is_win=True, then=1), default=0,
                              output_field=IntegerField())),
     ).order_by('-points_balance')[:100]
 
     football_tipsters = UserProfile.objects.filter(
-        tip__sport__name="Football"
+        tips__sport__name="Football"
     ).annotate(
-        total_bets=Count('tip'),
-        total_wins_count=Sum(Case(When(tip__is_win=True, then=1), default=0,
+        total_bets=Count('tips'),
+        total_wins_count=Sum(Case(When(tips__is_win=True, then=1), default=0,
                              output_field=IntegerField())),
     ).order_by('-points_balance')[:100]
 
     # Similar queries for other sports
     racing_tipsters = UserProfile.objects.filter(
-        tip__sport__name="Horse Racing"
+        tips__sport__name="Horse Racing"
     ).annotate(
-        total_bets=Count('tip'),
-        total_wins_count=Sum(Case(When(tip__is_win=True, then=1), default=0,
+        total_bets=Count('tips'),
+        total_wins_count=Sum(Case(When(tips__is_win=True, then=1), default=0,
                              output_field=IntegerField())),
     ).order_by('-points_balance')[:100]
 
     tennis_tipsters = UserProfile.objects.filter(
-        tip__sport__name="Tennis"
+        tips__sport__name="Tennis"
     ).annotate(
-        total_bets=Count('tip'),
-        total_wins_count=Sum(Case(When(tip__is_win=True, then=1), default=0,
+        total_bets=Count('tips'),
+        total_wins_count=Sum(Case(When(tips__is_win=True, then=1), default=0,
                              output_field=IntegerField())),
     ).order_by('-points_balance')[:100]
 
     golf_tipsters = UserProfile.objects.filter(
-        tip__sport__name="Golf"
+        tips__sport__name="Golf"
     ).annotate(
-        total_bets=Count('tip'),
-        total_wins_count=Sum(Case(When(tip__is_win=True, then=1), default=0,
+        total_bets=Count('tips'),
+        total_wins_count=Sum(Case(When(tips__is_win=True, then=1), default=0,
                              output_field=IntegerField())),
     ).order_by('-points_balance')[:100]
 
@@ -92,7 +92,10 @@ def tipster_league_table(request):
 
 
 def latest_tips(request):
-    return render(request, 'latest_tips.html')
+    # Fetch the latest tips, you can adjust the number of tips and ordering as needed
+    latest_tips = Tip.objects.all().order_by('-created_at')[:100]  # Adjust as needed
+    return render(request, 'latest-tips.html', {'latest_tips': latest_tips})
+
 
 
 def general_chat(request):
@@ -199,6 +202,8 @@ def submit_tips(request):
             except Sport.DoesNotExist:
                 form.add_error('sport', 'Invalid sport selected')
                 return render(request, 'submit_tips.html', {'form': form})
+            
+            points_bet = form.cleaned_data.get('points_bet') 
 
             new_tip = form.save(commit=False)
             new_tip.user = request.user
@@ -206,29 +211,29 @@ def submit_tips(request):
             new_tip.bet_description = form.cleaned_data['bet_description']
             new_tip.reasoning = form.cleaned_data['reasoning']
             new_tip.odds_given = form.cleaned_data['odds_given']
-            new_tip.points_bet = form.cleaned_data['points_bet']
+            new_tip.points_bet = ['points_bet']
         
-        # Calculate points won
-        points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
+            # Calculate points won
+            points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
 
-        # Update user's tipster stats
-        user_tipster_stats.total_bets_placed += 1
-        if new_tip.is_win:
-            user_tipster_stats.total_wins += 1
+            # Update user's tipster stats
+            user_tipster_stats.total_bets_placed += 1
+            if new_tip.is_win:
+                 user_tipster_stats.total_wins += 1
 
-        # Save the user's tipster stats
-        user_tipster_stats.save()
+            # Save the user's tipster stats
+            user_tipster_stats.save()
 
-        # Update user's points balance (this might be done in the
-        # calculate_points_won method)
-        user_points_balance = user_tipster_stats.points_balance
+             # Update user's points balance (this might be done in the
+             # calculate_points_won method)
+            user_points_balance = user_tipster_stats.points_balance
 
-        new_tip.save()  # Save the tip to the database
-        
-        # Display or use the points_won variable as needed
-        messages.success(request, f'You won {points_won} points!')
+            new_tip.save()  # Save the tip to the database
+     
+            # Display or use the points_won variable as needed
+            messages.success(request, f'You won {points_won} points!')
 
-        return redirect('submission_success')  # Redirect to a success page
+            return redirect('submission_success')  # Redirect to a success page
     else:
         form = BettingTipForm(initial={'user_points_balance': user_points_balance})
 

@@ -144,7 +144,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     @property
     def average_odds(self):
-        return self.tip_set.aggregate(Avg('odds'))['odds__avg'] or 0
+        return self.tips.aggregate(Avg('odds'))['odds__avg'] or 0
     
     # Update the points balance (can be called monthly or as needed)
     def reset_points(self):

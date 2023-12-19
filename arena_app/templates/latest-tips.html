@@ -1,24 +1,32 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<main>
- <!-- Tips Content -->
- <div class="container section-grid">
+<div class="container">
+    <h2>Latest Tips</h2>
     <div class="row">
-        <!-- Football Tips -->
-        <div class="col-lg-6 mb-2 section" id="football-tips">
-            {% for tip in football_tips %}
-                <!-- Display each football tip -->
-            {% endfor %}
+        {% for tip in latest_tips %}
+        <div class="col-md-4">
+            <div class="tip-card">
+                <h3>
+                    {% if tip.sport %}
+                        {{ tip.sport.name }}
+                    {% else %}
+                        Unknown Sport
+                    {% endif %}
+                </h3>
+                <p><strong>Bet Type:</strong> {{ tip.bet_type }}</p>
+                <p><strong>Odds:</strong> {{ tip.odds }}</p>
+                <p><strong>Points Bet:</strong> {{ tip.points_bet }}</p>
+                <p><strong>Additional Info:</strong> {{ tip.additional_info|json_script:"additional-info"|safe }}</p>
+                <p><strong>Submitted by:</strong> {{ tip.user.username }}</p>
+                <p><strong>Created At:</strong> {{ tip.created_at|date:"d M Y H:i" }}</p>
+            </div>
         </div>
-        <!-- Racing Tips-->
-        <div class="col-lg-6 mb-2 section" id="horse-racing-tips">
-            {% for tip in racing_tips %}
-                <!-- Display each racing tip -->
-            {% endfor %}
+        {% empty %}
+        <div class="col-md-12">
+            <p>No tips available yet.</p>
         </div>
+        {% endfor %}
     </div>
-    <!-- Repeat for other sports -->
 </div>
-</main>
 {% endblock %}
