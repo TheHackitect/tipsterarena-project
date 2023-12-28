@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile
+from .models import UserProfile, BlogPost
 from .models import Tip, Sport
 
 
@@ -146,3 +146,10 @@ class BettingTipForm(forms.ModelForm):
             raise forms.ValidationError("You cannot bet more points than your current balance.")
 
         return points_bet
+
+
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'content']

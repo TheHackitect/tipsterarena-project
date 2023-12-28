@@ -150,7 +150,6 @@ header {
 }
 
 nav a, .nav-item{
-    font-family: 'Montserrat', sans-serif;
     font-size: 1.1rem;
     color: var(--colors-appbarText);
     padding: 0.1rem 0.2rem;
@@ -168,7 +167,7 @@ nav a:hover, .nav-item:hover, .login-btn:hover {
 
 
 .nav-icon i, .login-btn i, .nav-link i {
-    margin-right: 2px; /* Adjust as needed */
+    margin-right: 1px; /* Adjust as needed */
     vertical-align: middle; /* Aligns the icon with the text */
     font-size: 1.1rem; 
 }
@@ -177,7 +176,7 @@ nav a:hover, .nav-item:hover, .login-btn:hover {
 .main-nav ul, .right-nav ul {
     display: flex;
     list-style-type: none;
-    gap: 1.30rem;
+    gap: 1.00rem;
     margin: 0;
     padding: 0;
 }
@@ -247,39 +246,6 @@ body .logo img {
 
 
 /* ==============================
-   SUBSCRIPTION STYLES
-   ============================== */
-
-/* Subscription Container */
-.subscription-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* This will take up the full viewport height */
-}
-
-/* Subscription Promo Styling */
-.subscription-promo {
-    background-color: var(--colors-secondary); /* Red background */
-    padding: 2rem; /* Add some padding for spacing */
-    border-radius: var(--radii-md); /* Rounded corners */
-    text-align: center; /* Center the text elements */
-}
-
-.subscription-promo h3,
-.subscription-promo p,
-.subscription-promo button {
-    color: var(--colors-white); /* White text color */
-    margin-bottom: 1rem; /* Spacing between elements */
-}
-
-.subscription-promo button:hover {
-    background-color: var(--colors-primary); /* Change button color on hover */
-}
-
-
-
-/* ==============================
    BUTTON STYLES
    ============================== */
 
@@ -303,7 +269,7 @@ button:hover {
 
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
 }
 
 /* Dropdown Content (Hidden by default) */
@@ -898,6 +864,53 @@ emoji-picker {
    .custom-btn:hover {
        background-color: darken(var(--colors-secondary), 10%);
    }
+
+
+   .blog-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.blog-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.blog-card-header,
+.blog-card-body,
+.blog-card-footer {
+    padding: 15px;
+}
+
+.blog-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #007bff;
+}
+
+.blog-snippet {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+}
+
+.read-more-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+    background-color: #0056b3;
+}
 
 
 /* ==============================

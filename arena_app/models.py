@@ -289,7 +289,6 @@ class TipsterStats(models.Model):
         return points_won
 
 
-
 class Follower(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='following')
     follower = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='followers')
@@ -344,3 +343,18 @@ class SportsOdds(models.Model):
     def __str__(self):
         return self.fixture
     # Add any additional fields for odds
+
+
+# BLOGS
+class BlogPost(models.Model):
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='blog_posts')
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']

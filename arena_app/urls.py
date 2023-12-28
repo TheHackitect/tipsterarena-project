@@ -16,6 +16,7 @@ urlpatterns = [
     path('latest_tips/', views.latest_tips, name='latest_tips'),
     path('blog/', views.blog, name='blog'),
     path('create-blog/', views.create_blog, name='create_blog'),
+    path('blogs/<int:pk>/', views.blog_post_detail, name='blog_post_detail'),
     path('latest-sports-blogs/', views.latest_sports_blogs, name='latest_sports_blogs'),
     path('general_chat/', views.general_chat, name='general_chat'),
     path('fixtures_results/', views.fixtures_results, name='fixtures_results'),

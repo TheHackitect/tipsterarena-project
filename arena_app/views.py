@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Case, When, IntegerField
 from .forms import UserLoginForm, UserRegistrationForm
-from .forms import BettingTipForm
-from .models import UserProfile, TipsterStats, Sport, Tip
+from .forms import BettingTipForm, BlogPostForm
+from .models import UserProfile, TipsterStats, Sport, Tip, BlogPost
 
 
 # Create your views here.
@@ -106,10 +106,31 @@ def create_blog(request):
     # Logic for creating a blog
     return render(request, 'create_blog.html')
 
+def create_blog_post(request):
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            blog_post = form.save(commit=False)
+            blog_post.author = request.user
+            blog_post.save()
+            return redirect('blog_post_detail', pk=blog_post.pk)
+    else:
+        form = BlogPostForm()
+    return render(request, 'create_blog.html', {'form': form})
 
 def latest_sports_blogs(request):
     # Logic for displaying the latest sports blogs
     return render(request, 'latest_sports_blogs.html')
+
+
+def blog_posts(request):
+    posts = BlogPost.objects.all()
+    return render(request, 'latest_sports_blogs.html', {'posts': posts})
+
+def blog_post_detail(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    return render(request, 'blog_post_detail.html', {'post': post})
+
 
 
 def general_chat(request):
