@@ -75,6 +75,26 @@
                         </a>
                     </div>
                 </li>
+
+                
+                <li class="dropdown">
+                    <span class="nav-item">
+                        <span class="nav-icon"><i class="fas fa-blog"></i></span>
+                        <span class="nav-text">Blog</span>
+                        <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <div class="dropdown-content">
+                        <a href="{% url 'create_blog' %}">Create Blog
+                            <span class="nav-icon"><i class="fas fa-blog"></i></span>
+                        </a>    
+                        <a href="{% url 'latest_sports_blogs' %}">Latest Sports Blogs
+                            <span class="nav-icon"><i class="fas fa-fa-book-bookmark"></i></span>
+                        </a>
+                    </div>
+                </li>
+                
                 
                 <li class="dropdown">
                     <span class = "nav-item">

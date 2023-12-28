@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     SubscriptionPlan, UserProfile, Tip, Follower,
     ChatMessage, Subscription, Sport, Team,
-    Fixture, Result, LiveScore, SportsOdds,TipsterStats
+    Fixture, Result, LiveScore, SportsOdds, TipsterStats
 )
 
 # USERS
@@ -22,7 +22,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 @admin.register(Tip)
 class TipAdmin(admin.ModelAdmin):
     list_display = ('user', 'sport', 'bet_type', 'odds', 'points_bet', 'is_win', 'created_at')
-    search_fields = ('user__username', 'sport', 'bet_type') # Adjust as per your fields
+    search_fields = ('user__username', 'sport', 'bet_type')  # Adjust as per your fields
 
 
 @admin.register(Follower)

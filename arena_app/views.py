@@ -97,6 +97,20 @@ def latest_tips(request):
     return render(request, 'latest-tips.html', {'latest_tips': latest_tips})
 
 
+def blog(request):
+    # Your logic for the blog page
+    return render(request, 'blog.html')
+
+
+def create_blog(request):
+    # Logic for creating a blog
+    return render(request, 'create_blog.html')
+
+
+def latest_sports_blogs(request):
+    # Logic for displaying the latest sports blogs
+    return render(request, 'latest_sports_blogs.html')
+
 
 def general_chat(request):
     return render(request, 'general_chat.html')
@@ -197,6 +211,7 @@ def submit_tips(request):
         form = BettingTipForm(request.POST)
         if form.is_valid():
             sport_name = form.cleaned_data.get('sport')
+            sport_instance = None
             try:
                 sport_instance = Sport.objects.get(name=sport_name)
             except Sport.DoesNotExist:
@@ -211,7 +226,7 @@ def submit_tips(request):
             new_tip.bet_description = form.cleaned_data['bet_description']
             new_tip.reasoning = form.cleaned_data['reasoning']
             new_tip.odds_given = form.cleaned_data['odds_given']
-            new_tip.points_bet = ['points_bet']
+            new_tip.points_bet = points_bet
         
             # Calculate points won
             points_won = user_tipster_stats.calculate_points_won(points_bet, new_tip.odds_given)
@@ -220,6 +235,10 @@ def submit_tips(request):
             user_tipster_stats.total_bets_placed += 1
             if new_tip.is_win:
                  user_tipster_stats.total_wins += 1
+            elif new_tip.is_win is None:
+                # Handle the case where the result of the tip is not yet determined
+                # For example, you might want to add some logic to mark the tip for later validation
+                pass
 
             # Save the user's tipster stats
             user_tipster_stats.save()
@@ -229,7 +248,7 @@ def submit_tips(request):
             user_points_balance = user_tipster_stats.points_balance
 
             new_tip.save()  # Save the tip to the database
-     
+ 
             # Display or use the points_won variable as needed
             messages.success(request, f'You won {points_won} points!')
 

@@ -151,9 +151,9 @@ header {
 
 nav a, .nav-item{
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--colors-appbarText);
-    padding: 0.2rem 0.5rem;
+    padding: 0.1rem 0.2rem;
     border-radius: var(--radii-md);
     transition: text-shadow 0.3s, transform 0.3s;
     text-decoration: none;
@@ -168,16 +168,16 @@ nav a:hover, .nav-item:hover, .login-btn:hover {
 
 
 .nav-icon i, .login-btn i, .nav-link i {
-    margin-right: 5px; /* Adjust as needed */
+    margin-right: 2px; /* Adjust as needed */
     vertical-align: middle; /* Aligns the icon with the text */
-    font-size: 1.2rem; 
+    font-size: 1.1rem; 
 }
 
 
 .main-nav ul, .right-nav ul {
     display: flex;
     list-style-type: none;
-    gap: 1.55rem;
+    gap: 1.30rem;
     margin: 0;
     padding: 0;
 }
@@ -185,21 +185,23 @@ nav a:hover, .nav-item:hover, .login-btn:hover {
 
 .nav-text, .nav-icon{
     display: block;
-    font-size: 1.2rem; /* Adjust as needed */
+    font-size: 1.1rem; /* Adjust as needed */
     text-align: center;
 }
 
 .nav-item {
-    display: inline-block;
-    padding: 10px; /* Adjust this value as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px; /* Adjust this value as needed */
     /* Add any other styles that were applied to the <a> tags */
 }
 .nav-link, .login-btn {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.2rem 0.5rem; 
-    font-size:1.2rem;
+    padding: 0.2rem 0.3rem; 
+    font-size:1.1rem;
     border-radius: var(--radii-md);
     justify-content: center;
     text-decoration: none;
@@ -322,7 +324,7 @@ button:hover {
 /* Dropdown Links */
 .dropdown-content a {
     color: white; /* Initial color */
-    padding: 12px 16px;
+    padding: 10px 14px;
     text-decoration: none;
     display: block;
 }
@@ -342,6 +344,8 @@ button:hover {
 
 .dropdown-arrow {
     margin-left: 5px; /* Adjust space between text and arrow */
+    width: 16px;
+    height: 16px;
     fill: none;  /* Remove fill color */
     stroke: #000; /* Set the stroke color */
     transition: transform 0.3s ease-in-out; /* Optional: Add transition for smoother arrow flipping */
@@ -377,7 +381,7 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 1.2rem; /* Adjust size as needed */
     color: var(--colors-appbarText); /* Color of the icon */
 }
 

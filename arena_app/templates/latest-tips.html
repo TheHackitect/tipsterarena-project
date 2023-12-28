@@ -17,6 +17,13 @@
                 <p><strong>Bet Type:</strong> {{ tip.bet_type }}</p>
                 <p><strong>Odds:</strong> {{ tip.odds }}</p>
                 <p><strong>Points Bet:</strong> {{ tip.points_bet }}</p>
+                {% if tip.is_win %}
+                    <p class="win-status">Result: Win</p>
+                {% elif tip.is_win is False %}
+                    <p class="loss-status">Result: Loss</p>
+                {% else %}
+                    <p class="pending-status">Result: Pending</p>
+                {% endif %}
                 <p><strong>Additional Info:</strong> {{ tip.additional_info|json_script:"additional-info"|safe }}</p>
                 <p><strong>Submitted by:</strong> {{ tip.user.username }}</p>
                 <p><strong>Created At:</strong> {{ tip.created_at|date:"d M Y H:i" }}</p>
