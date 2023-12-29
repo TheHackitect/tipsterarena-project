@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="racing-results-container">
+    <h1 class="page-title">Horse Racing Meetings Results</h1>
+    
+    <!-- Date Picker for Selecting the Date of Races -->
+    <div class="date-picker">
+        <input type="date" id="raceDate" name="race-date">
+        <button onclick="fetchRaceResults()">Show Results</button>
+    </div>
+
+    <!-- Results Section -->
+    <div class="race-results">
+        {% for meeting in race_meetings %}
+        <div class="meeting">
+            <h2 class="meeting-title">{{ meeting.meeting_name }}</h2>
+            <div class="races">
+                {% for race in meeting.races %}
+                <div class="race">
+                    <h3>{{ race.race_number }} - {{ race.race_name }}</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Horse</th>
+                                <th>Jockey</th>
+                                <th>Trainer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in race.results %}
+                            <tr>
+                                <td>{{ result.position }}</td>
+                                <td>{{ result.horse_name }}</td>
+                                <td>{{ result.jockey_name }}</td>
+                                <td>{{ result.trainer_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block javascript %}
+<script>
+    function fetchRaceResults() {
+        let selectedDate = document.getElementById('raceDate').value;
+        // Implement your fetching logic here
+    }
+</script>
+{% endblock %}

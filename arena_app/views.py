@@ -127,10 +127,26 @@ def blog_posts(request):
     posts = BlogPost.objects.all()
     return render(request, 'latest_sports_blogs.html', {'posts': posts})
 
+
 def blog_post_detail(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
     return render(request, 'blog_post_detail.html', {'post': post})
 
+
+def football_fixtures(request):
+    return render(request, 'football_fixtures.html')
+
+
+def racing_fixtures(request):
+    return render(request, 'racing_fixtures.html')  
+
+
+def tennis_fixtures(request):
+    return render(request, 'tennis_fixtures.html')
+
+
+def golf_fixtures(request):
+    return render(request, 'golf_fixtures.html')
 
 
 def general_chat(request):
@@ -162,14 +178,13 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-      
+
             # Create a TipsterStats instance for the registered user
             tipster_stats = TipsterStats.objects.create(user=user)
-            
+ 
             # Debugging statements
             print("User registered:", user)
             print("TipsterStats created:", tipster_stats)
-        
             # Redirect to a success page.
             return redirect('signin')
         # Assuming 'signin' is the name of your login URL.
@@ -224,7 +239,7 @@ def submit_tips(request):
     user_profile = get_object_or_404(UserProfile, username=request.user.username)
     # Check if the user has tipster stats, create if not exist
     user_tipster_stats, _ = TipsterStats.objects.get_or_create(user=user_profile)
-    
+
     user_points_balance = user_tipster_stats.points_balance
     # Replace with actual field name for points balance
 
@@ -238,7 +253,6 @@ def submit_tips(request):
             except Sport.DoesNotExist:
                 form.add_error('sport', 'Invalid sport selected')
                 return render(request, 'submit_tips.html', {'form': form})
-            
             points_bet = form.cleaned_data.get('points_bet') 
 
             new_tip = form.save(commit=False)

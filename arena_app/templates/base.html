@@ -73,6 +73,10 @@
                             <span class="nav-icon"><i class="fas fa-dollar-sign"></i></span>
                             Latest Tips
                         </a>
+                        <a href="{% url 'submit_tips' %}">
+                            <span class="nav-icon"><i class="fas fa-dollar-sign"></i></span>
+                            Submit Tip
+                        </a>
                     </div>
                 </li>
 
@@ -104,7 +108,6 @@
                         <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </a>
                     <div class="dropdown-content">
                         <a href="{% url 'general_chat' %}">
                             <span class="nav-icon"><i class="fas fa-football-ball"></i></span> General Chat
@@ -112,19 +115,28 @@
                     </div>
                 </li>
                 <li class="dropdown">
-                    <a href="{% url 'fixtures_results' %}" class="nav-link">
+                    <span class = "nav-item">
                         <span class="nav-icon"><i class="fas fa-flag-checkered"></i></span>
                         <span class="nav-text">Fixtures & Results</span>
+                    </span>
                         <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
                     <div class="dropdown-content">
-                        
-                        <a href="{% url 'in_play' %}">
-                            <span class="nav-icon"><i class="fas fa-chalkboard"></i></span>
-                            In Play
+                        <a href="{% url 'football_fixtures' %}">
+                            <span class="nav-icon"><i class="fas fa-futbol"></i></span> Football
                         </a>
+                        <a href="{% url 'racing_fixtures' %}">
+                            <span class="nav-icon"><i class="fas fa-horse"></i></span> Horse Racing
+                        </a>
+                        <a href="{% url 'tennis_fixtures' %}">
+                            <span class="nav-icon"><i class="fa-solid fa-baseball"></i></span> Tennis
+                        </a>
+                        <a href="{% url 'golf_fixtures' %}">
+                            <span class="nav-icon"><i class="fas fa-golf-ball"></i></span> Golf
+                        </a>
+                    
                     </div>
                 </li>
                 

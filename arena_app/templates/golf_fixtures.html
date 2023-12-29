@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="golf-container">
+    <h1 class="page-title">Golf Tour Events</h1>
+
+    <div class="events">
+        <div class="upcoming-events">
+            <h2>Upcoming Events</h2>
+            <ul class="event-list">
+                {% for event in upcoming_events %}
+                <li class="event-item">
+                    <span class="event-date">{{ event.date }}</span>
+                    <span class="event-name">{{ event.name }}</span>
+                    <span class="event-location">{{ event.location }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="past-events">
+            <h2>Recent Results</h2>
+            <ul class="results-list">
+                {% for result in recent_results %}
+                <li class="result-item">
+                    <span class="result-date">{{ result.date }}</span>
+                    <span class="result-event">{{ result.event }}</span>
+                    <span class="result-winner">{{ result.winner }}</span>
+                    <span class="result-score">{{ result.score }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

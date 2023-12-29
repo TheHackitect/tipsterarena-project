@@ -1086,4 +1086,180 @@ emoji-picker {
 
 }
 
-  
+.racing-results-container {
+    margin: 20px;
+    padding: 10px;
+}
+
+.page-title {
+    text-align: center;
+    color: #333;
+}
+
+.date-picker {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.date-picker input[type="date"] {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.date-picker button {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.date-picker button:hover {
+    background-color: #0056b3;
+}
+
+.meeting {
+    background-color: #f8f9fa;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.meeting-title {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.race {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.results-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.tennis-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.fixtures-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.fixtures, .results {
+    flex-basis: 48%; /* Adjust for responsiveness */
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.fixture-list, .results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.fixture-item, .result-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.fixture-item:last-child, .result-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.fixture-date, .result-date {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.fixture-match, .result-match, .fixture-tournament, .result-tournament, .result-score {
+    display: block;
+    color: #666;
+}
+
+.golf-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.upcoming-events, .past-events {
+    flex-basis: 48%; /* Adjust for responsiveness */
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.event-list, .results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-item, .result-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.event-item:last-child, .result-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.event-date, .result-date {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.event-name, .result-event, .event-location, .result-winner, .result-score {
+    display: block;
+    color: #666;
+}
+

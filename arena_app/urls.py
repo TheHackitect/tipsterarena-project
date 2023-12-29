@@ -19,7 +19,6 @@ urlpatterns = [
     path('blogs/<int:pk>/', views.blog_post_detail, name='blog_post_detail'),
     path('latest-sports-blogs/', views.latest_sports_blogs, name='latest_sports_blogs'),
     path('general_chat/', views.general_chat, name='general_chat'),
-    path('fixtures_results/', views.fixtures_results, name='fixtures_results'),
     path('in_play/', views.in_play, name='in_play'),
     path('about/', views.about, name='about'),
     path('register/', views.register, name='register'),
@@ -31,6 +30,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('submit-tips/', views.submit_tips, name='submit_tips'),
     path('submission-success/', views.submission_success, name='submission_success'),
+    path('football-fixtures/', views.football_fixtures, name='football_fixtures'),
+    path('racing-fixtures/', views.racing_fixtures, name='racing_fixtures'),
+    path('tennis-fixtures/', views.tennis_fixtures, name='tennis_fixtures'),
+    path('golf-fixtures/', views.golf_fixtures, name='golf_fixtures'),
 ]
 
 

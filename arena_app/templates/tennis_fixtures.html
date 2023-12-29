@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tennis-container">
+    <h1 class="page-title">ATP Tennis Fixtures & Results</h1>
+
+    <div class="fixtures-results">
+        <div class="fixtures">
+            <h2>Upcoming Fixtures</h2>
+            <ul class="fixture-list">
+                {% for fixture in upcoming_fixtures %}
+                <li class="fixture-item">
+                    <span class="fixture-date">{{ fixture.date }}</span>
+                    <span class="fixture-match">{{ fixture.player1 }} vs {{ fixture.player2 }}</span>
+                    <span class="fixture-tournament">{{ fixture.tournament }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="results">
+            <h2>Recent Results</h2>
+            <ul class="results-list">
+                {% for result in recent_results %}
+                <li class="result-item">
+                    <span class="result-date">{{ result.date }}</span>
+                    <span class="result-match">{{ result.winner }} def. {{ result.loser }}</span>
+                    <span class="result-score">{{ result.score }}</span>
+                    <span class="result-tournament">{{ result.tournament }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
