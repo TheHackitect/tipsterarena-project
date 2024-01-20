@@ -58,8 +58,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-# If you're deploying to Heroku, add the following lines
-django_heroku.settings(locals())
+
 
 ROOT_URLCONF = 'tipsterarena.urls'
 
@@ -87,7 +86,10 @@ WSGI_APPLICATION = 'tipsterarena.wsgi.application'
 
 
 # Determine which database to use based on the .env file
-if config('DB_CHOICE') == "mysql":
+db_choice = config('DB_CHOICE')
+print(f'DB_CHOICE is set to: {db_choice}')
+
+if db_choice == "mysql":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -102,9 +104,17 @@ if config('DB_CHOICE') == "mysql":
             }
         }
     }
-elif config('DB_CHOICE') == "postgres":
+    pass
+
+elif db_choice == "postgres":
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
+    database_url = os.environ.get('DATABASE_URL', 'Not Set')
+    print(f'DATABASE_URL is: {database_url}')
+    
+    DATABASES = {
+        'default': dj_database_url.config(default=database_url)
     }
 else:
     DATABASES = {
@@ -113,6 +123,10 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    pass
+
+print(f"Database User: {config('MYSQL_DB_USER')}")
+print(f"Database Password: {config('MYSQL_DB_PASSWORD')}")
 
 AUTH_USER_MODEL = 'arena_app.UserProfile'
 
