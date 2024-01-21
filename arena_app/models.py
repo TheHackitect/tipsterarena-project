@@ -324,14 +324,20 @@ class Result(models.Model):
 
 
 class LiveScore(models.Model):
-    fixture = models.OneToOneField(Fixture, on_delete=models.CASCADE)
-    team_home_score = models.PositiveIntegerField()
-    team_away_score = models.PositiveIntegerField()
-    status = models.CharField(max_length=255)  # Ongoing, Finished, etc.
+    league = models.CharField(max_length=255, default='Unknown League')
+    home_team = models.CharField(max_length=255, default='Unknown Team')
+    away_team = models.CharField(max_length=255, default='Unknown Team')
+    home_score = models.IntegerField(default=0)  
+    away_score = models.IntegerField(default=0) 
+    match_status = models.CharField(max_length=50,default='Unknown')
+    match_time = models.CharField(max_length=50,default='Unknown')
+    timestamp = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        unique_together = ('league', 'home_team', 'away_team')
 
     def __str__(self):
-        return self.fixture
-    # Add any additional fields for live scores
+        return f"{self.league}: {self.home_team} vs {self.away_team}"
 
 
 class SportsOdds(models.Model):

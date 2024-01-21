@@ -64,7 +64,9 @@ class ResultAdmin(admin.ModelAdmin):
 
 @admin.register(LiveScore)
 class LiveScoreAdmin(admin.ModelAdmin):
-    list_display = ('fixture', 'team_home_score', 'team_away_score', 'status')
+    list_display = ('league', 'home_team', 'home_score', 'away_team', 'away_score', 'match_status', 'match_time')
+    # You can add more admin configurations as needed
+
 
 
 @admin.register(SportsOdds)

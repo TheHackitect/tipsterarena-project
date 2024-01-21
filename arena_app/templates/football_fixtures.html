@@ -1,19 +1,17 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block title %}Live Scores{% endblock %}
 
 {% block content %}
-<div class="football-container">
-    <h1 class="page-title">Football Fixtures and Results</h1>
-
-    <div class="matches">
-        {% for match in matches %}
-        <div class="match-item">
-            <div class="match-date">{{ match.date }}</div>
-            <div class="team home-team">{{ match.team_home }}</div>
-            <div class="match-score">{{ match.team_home_score }} - {{ match.team_away_score }}</div>
-            <div class="team away-team">{{ match.team_away }}</div>
+<div class="container">
+    <h2>Live Football Scores</h2>
+    <div class="scores-list">
+        {% for score in scores %}
+        <div class="score-item">
+            <span class="team">{{ score.home_team }} {{ score.home_score }}</span> - 
+            <span class="team">{{ score.away_team }} {{ score.away_score }}</span>
+            <span class="status">({{ score.match_status }})</span>
         </div>
-        {% empty %}
-        <p>No matches available.</p>
         {% endfor %}
     </div>
 </div>
