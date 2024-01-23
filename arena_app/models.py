@@ -334,6 +334,7 @@ class LiveScore(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
     
     class Meta:
+        db_table = 'arena_app_live_scores'
         unique_together = ('league', 'home_team', 'away_team')
 
     def __str__(self):

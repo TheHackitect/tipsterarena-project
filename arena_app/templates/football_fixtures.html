@@ -5,14 +5,20 @@
 {% block content %}
 <div class="container">
     <h2>Live Football Scores</h2>
-    <div class="scores-list">
+    <table class="scores-table">
         {% for score in scores %}
-        <div class="score-item">
-            <span class="team">{{ score.home_team }} {{ score.home_score }}</span> - 
-            <span class="team">{{ score.away_team }} {{ score.away_score }}</span>
-            <span class="status">({{ score.match_status }})</span>
-        </div>
+            {% ifchanged score.league %}
+                <tr class="league-header">
+                    <th colspan="4">{{ score.league }}</th>
+                </tr>
+            {% endifchanged %}
+            <tr class="score-row">
+                <td class="timestamp">{{ score.timestamp }}</td>
+                <td class="teams">{{ score.home_team }} - {{ score.away_team }}</td>
+                <td class="score">{{ score.home_score }} - {{ score.away_score }}</td>
+                <td class="status">({{ score.match_status }})</td>
+            </tr>
         {% endfor %}
-    </div>
+    </table>
 </div>
 {% endblock %}

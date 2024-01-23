@@ -1263,3 +1263,38 @@ emoji-picker {
     color: #666;
 }
 
+.scores-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: var(--fonts-paragraph);
+}
+
+.scores-table th, .scores-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.league-header th {
+    background-color: var(--colors-primary); /* Primary color for header */
+    color: var(--colors-appbarText); /* Text color for header */
+    font-size: 1.2em;
+}
+
+.score-row:nth-child(even) {
+    background-color: var(--colors-gray7); /* Light background for even rows */
+}
+
+.timestamp, .status {
+    color: var(--colors-text); /* Text color for timestamps and status */
+}
+
+.teams {
+    font-weight: bold;
+}
+
+/* Optional: Highlight row on hover */
+.score-row:hover {
+    background-color: var(--colors-highlight);
+}

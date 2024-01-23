@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Case, When, IntegerField
 from .forms import UserLoginForm, UserRegistrationForm
 from .forms import BettingTipForm, BlogPostForm
-from .models import UserProfile, TipsterStats, Sport, Tip, BlogPost
+from .models import UserProfile, TipsterStats, Sport, Tip, BlogPost, LiveScore
 
 
 # Create your views here.
@@ -134,8 +134,8 @@ def blog_post_detail(request, pk):
 
 
 def football_fixtures(request):
-    return render(request, 'football_fixtures.html')
-
+    scores = LiveScore.objects.all()  # Fetch all live scores
+    return render(request, 'football_fixtures.html', {'scores': scores})
 
 def racing_fixtures(request):
     return render(request, 'racing_fixtures.html')  
